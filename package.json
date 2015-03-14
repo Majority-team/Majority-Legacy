@@ -1,0 +1,16 @@
+{
+	"name": "Majority_Legacy",
+	"version": "0.1.0",
+	"dependencies": {
+		"express": "~4.12.0",
+		"socket.io": "~1.3.4",
+		"passport": "~0.2.1",
+		"passport-google-oauth": "~0.1.5",
+		"passport-facebook": "~2.0.0",
+		"passport-twitter": "~1.0.3",
+		"cookie-parser": "~1.3.4",
+		"cookie-session": "~1.1.0"
+		},
+	"author": "BADASSGROUP",
+	"description": "It's quizz time"
+}

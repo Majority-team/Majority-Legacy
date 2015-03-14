@@ -1,0 +1,98 @@
+[
+{
+	"question":"Où se trouve la manche ?",
+	"reponses":
+		["Au nord de la france",
+		"Au sud du royaume uni",
+		"Autour de mon bras",
+		"Au bout de la Chemise"]
+},
+{
+	"question":"De quelle couleur est le cheval blanc d'Henri IV",
+	"reponses":
+		["Blanc",
+		"Cheval",
+		"C'était une jument",
+		"4 pattes, une crinière et une queue"]
+},
+{
+	"question":"Quelle est la grande réponse ?",
+	"reponses":
+		["Nul ne le sait",
+		"Quelle est la grande question ?",
+		"42",
+		"H2G2 ? Quoi ça ?"]
+},
+{
+	"question":"La terre est bleue...",
+	"reponses":
+		["et elle tourne",
+		"comme une orange",
+		"à cause des océans",
+		"comme une FATAL ERROR Windows"]
+},
+{
+	"question":"Les choux sont cultivés...",
+	"reponses":
+		["à la mode de chez nous",
+		"aux alentours d'Ankh Morpork",
+		"dans le nord de la france",
+		"par des agriculteurs"]
+},
+{
+	"question":"f(x)=1/x",
+	"reponses":
+		["f(2)=0,5",
+		"f(0) n'existe pas",
+		"Des maths ? Quoi ça ?",
+		"f(x) est l'inverse de x"]
+},
+{
+	"question":"Cette question est-elle ambigue ?",
+	"reponses":
+		["Non",
+		"Oui",
+		"Peut etre",
+		"Cette question est-elle ambigue ?"]
+},
+{
+	"question":"JavaScript...",
+	"reponses":
+		["c'est nul",
+		"est un langage de programmation compilé par un navigateur",
+		"est un langage de programmation de bas niveau",
+		"est un langage de programmation qui n'a pas de logo"]
+},
+{
+	"question":"Bonne chance !",
+	"reponses":
+		["J'ai de la chance (ou pas)",
+		"J'ai de la chance (ou pas)",
+		"J'ai de la chance (ou pas)",
+		"J'ai de la chance (ou pas)"]
+},
+{
+	"question":"Allez vous répondre non à cette question ?",
+	"reponses":
+		["Oui",
+		"Non",
+		"Peut-etre",
+		"Je compte mentir"]
+},
+{
+	"question":"Un marteau sert",
+	"reponses":
+		["à marteller",
+		"à planter des clous",
+		"à bricoler",
+		"à rien"]
+},
+{
+	"question":"Vous avez :",
+	"reponses":
+		["moins de 18 ans",
+		"entre 18 et 25 ans",
+		"plus de 25 ans",
+		"deux jambes et deux bras, comme tout le monde"]
+}
+]
