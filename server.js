@@ -242,7 +242,7 @@ function sendQuestion() {
 		question = chooseQuestion(question);
 
 		// On envoie la question
-		io.emit('new_question', question);
+		io.emit('new_question', {"question": question, "temps": tempsParQuestion});
 
 		console.log(scores);
 	}
@@ -254,8 +254,15 @@ function sendQuestion() {
 		// On relance la partie après tempsEntreParties ms
 		var startNewgame = setTimeout(newGame, tempsEntreParties);
 
+		io.emit('waiting_next_game', tempsEntreParties);
+
 		// On réinitialise les questions utilisées
 		questionsUtilisees = [];
+
+		// On enregistre les scores de la partie dans le JSON "partie précédente"
+		fs.writeFile(__dirname + '/ressources/data/partie_precedente.json', JSON.stringify(scores, null, 4), function (err, data) {
+			if (err) throw err;
+		});
 	}
 }
 

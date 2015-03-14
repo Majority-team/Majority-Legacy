@@ -10,7 +10,7 @@ $(function(){
 
 	socket.on('new_question', function (data) {
 
-		var question = data;
+		var question = data.question;
 		
 		$('#question > strong').text(question.question);
 
