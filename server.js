@@ -41,9 +41,12 @@ app.use(passport.initialize());
 passport.use(new GoogleStrategy({
 		clientID: "498837580813-rm7m49o80e2l2gss6lrm2q75bbdftl2g.apps.googleusercontent.com",
 		clientSecret: "F8IxXj02PC5fPIzmSLJivMsA",
-		callbackURL: "http://127.0.0.1:8080/auth/google/callback"
+		callbackURL: "http://127.0.0.1:8080/auth/google/callback",
+		profileFields: ['id', 'displayName', 'photos']
 	},
 	function (req, accessToken, refreshToken, profile, done) {
+		profile.photos = [];
+		profile.photos.push({"value": profile._json.picture});
 		done(null, profile);
 	}
 ));
@@ -61,7 +64,8 @@ app.get('/auth/google/callback', passport.authenticate('google', { failureRedire
 passport.use(new FacebookStrategy({
 		clientID: "812477628788555",
 		clientSecret: "4408c18ddbb035e900170c0c5c6867b1",
-		callbackURL: "http://localhost:8080/auth/facebook/callback"
+		callbackURL: "http://localhost:8080/auth/facebook/callback",
+		profileFields: ['id', 'displayName', 'photos']
 	},
 	function (req, accessToken, refreshToken, profile, done) {
 		done(null, profile);
@@ -81,7 +85,8 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRe
 passport.use(new TwitterStrategy({
 		consumerKey: "teeqDZxvDxJHj1tx5A67PPoEk",
 		consumerSecret: "fILFhYATWUUnoU64lhFFHXjO2nVZgRKHXHTfsZZySnx3qbpSKQ",
-		callbackURL: "http://127.0.0.1:8080/auth/twitter/callback"
+		callbackURL: "http://127.0.0.1:8080/auth/twitter/callback",
+		profileFields: ['id', 'displayName', 'photos']
 	},
 	function (req, accessToken, refreshToken, profile, done) {
      	done(null, profile);
@@ -103,9 +108,9 @@ app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedi
 passport.serializeUser(function(user, done) {
 	user = { provider: user.provider,
 		idJoueur: user.id,
-		pseudo: user.displayName
+		pseudo: user.displayName,
+		photo: user.photos[0].value
 	};
-
  	done(null, user);
 });
 
@@ -135,7 +140,8 @@ var question = {},
 	tempsEntreParties = 10000,
 	lancerLesQuestions = null,
 	scores = [],
-	reponses = [];
+	reponses = [],
+	first_question = true;
 
 // On recupère toutes les questions de la base de donnée dans le tableau "questions"
 fs.readFile(__dirname + '/ressources/data/questions.json', function (err, data) {
@@ -169,13 +175,15 @@ io.on('connection', function (socket, pseudo) {
 			// On ajoute au tableau des scores un nouveau joueur
 			socket.pseudo = "Anonyme" + (scores.length + 1);
 			socket.idJoueur = scores.length + 1;
+			socket.photo = "/images/logo.png"
 
-			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0});
+			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo});
 		}
 		else
 		{
 			socket.pseudo = socket.handshake.session.passport.user.pseudo;
 			socket.idJoueur = socket.handshake.session.passport.user.idJoueur;
+			socket.photo = socket.handshake.session.passport.user.photo;
 			var youshallnotpass = false;
 			for(var i = 0; i < scores.length; ++i)
 			{
@@ -189,7 +197,7 @@ io.on('connection', function (socket, pseudo) {
 
 			if (scores.indexOf(socket.handshake.session.passport.user.idJoueur) === -1 && !youshallnotpass)
 			{
-			  scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0});
+			  scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo});
 			}
 		}
 
@@ -200,28 +208,22 @@ io.on('connection', function (socket, pseudo) {
 	// Reponse envoyée
 	socket.on('answer', function (idReponse) {
 
-		if (socket.pseudo !== undefined || socket.idJoueur !== undefined)
-		{
-			// On note l'id de la reponse
-			reponses.push({"id": idReponse, "pseudo": socket.pseudo, "idJoueur": socket.idJoueur});
-
-			// On actualise les joueurs par réponse pour chaque client
-			io.emit('joueurs_par_reponses', reponses);
-		}
-		else
+		if (socket.pseudo === undefined || socket.idJoueur === undefined)
 		{
 			// On ajoute au tableau des scores un nouveau joueur
 			socket.pseudo = "Anonyme" + (scores.length + 1);
 			socket.idJoueur = scores.length + 1;
 
-			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0});
-
-			// On note l'id de la reponse
-			reponses.push({"id": idReponse, "pseudo": socket.pseudo, "idJoueur": socket.idJoueur});
-
-			// On actualise les joueurs par réponse pour chaque client
-			io.emit('joueurs_par_reponses', reponses);
+			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo});
 		}
+
+
+		// On note l'id de la reponse
+		reponses.push({"id": idReponse, "pseudo": socket.pseudo, "idJoueur": socket.idJoueur, "photo": socket.photo});
+
+		// On actualise les joueurs par réponse pour chaque client
+		io.emit('joueurs_par_reponses', reponses);
+
 	});
 });
 
@@ -236,21 +238,22 @@ newGame();
 
 // Quand un nouveau jeu est lancé on lance les questions tout les tempsParQuestion ms
 function newGame() {
-	reponses = [];
+	first_question = true;
 	lancerLesQuestions = setInterval(sendQuestion, tempsParQuestion);
 }
 
 // Fonction d'envoi des questions
 function sendQuestion() {
-
-	// On compte les points
-	// On actualise les score à partir des résultats de la question précédente
-	updateScore();
+	
+	// On compte les points si ce n'est pas la premiere question
+	if (first_question !== true)
+	{
+		// On actualise les score à partir des résultats de la question précédente
+		updateScore();
+	}
 
 	// On vide le tableau des reponses
 	reponses = [];
-
-
 
 	// Si la partie n'est pas finie :
 	if (questionsUtilisees.length < questionsParPartie)
