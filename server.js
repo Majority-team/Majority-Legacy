@@ -141,7 +141,8 @@ var question = {},
 	lancerLesQuestions = null,
 	scores = [],
 	reponses = [],
-	first_question = true;
+	first_question = true,
+	jsonScores = [];
 
 // On recupère toutes les questions de la base de donnée dans le tableau "questions"
 fs.readFile(__dirname + '/ressources/data/questions.json', function (err, data) {
@@ -279,6 +280,12 @@ function sendQuestion() {
 		// On réinitialise les questions utilisées
 		questionsUtilisees = [];
 
+		// On réinitialise les scores
+		for(i = 0; i < scores.length; ++i)
+		{
+			scores[i].score = 0;
+		}
+
 		// On enregistre les scores de la partie dans le JSON "partie précédente"
 		fs.writeFile(__dirname + '/ressources/data/partie_precedente.json', JSON.stringify(scores, null, 4), function (err, data) {
 			if (err) throw err;
@@ -308,8 +315,22 @@ function chooseQuestion(question) {
 }
 
 function updateScore() {
-	// nombre total de réponses enregistrées
+	fs.readFile(__dirname + '/ressources/data/scores_semaine.json', function (err, data) {
+		if (err) throw err;
+		jsonScores = JSON.parse(data);
+	});
+	var totalScores = scores.length;
 	var totalAnswers = reponses.length;
+	var totalJsonScores = jsonScores.length;
+
+	if(totalAnswers < totalJsonScores)
+	{
+		var totalMaxBound = totalJsonScores;
+	}
+	else
+	{
+		var totalMaxBound = totalAnswers;
+	}
 
 	// tableau contenant l'id de chaque réponse et le nombre de voix pour chaque réponse
 	var answerCount  = [[0,1],[0,2],[0,3],[0,4]];
@@ -339,21 +360,51 @@ function updateScore() {
 	if(totalAnswers >= 6 && ratio_first_answer < 0.5 && ratio_second_answer >= 0.2)
 	{
 			// Pour chaque réponse
-			for(i = 0; i < totalAnswers; ++i)
+			for(i = 0; i < totalScores; ++i)
 			{
 				// On suppose qu'une erreur intervient
 				var idFromReponse = -1;
-
+				var idFromJson = -1;
+				var jsonProcessed = false;
+				var reponseProcessed = false;
 				// On obtient la position du joueur dans le tableau des scores :
 				// Pour toute entrée dans le tableau des scores
-				for(var y = 0; y < scores.length; ++y)
+				for(var y = 0; y < totalMaxBound; ++y)
 				{
+					if(!jsonProcessed)
+					{
+						if(y >= totalJsonScores)
+						{
+							jsonScores.push(scores[i]);
+							idFromJson = totalJsonScores;
+							jsonProcessed = true;
+						}
+						else if(scores[i].idJoueur === jsonScores[y].idJoueur )
+						{
+							idFromJson = y;
+							jsonProcessed = true;
+						}
+					}
+
 					// On vérifie si l'id de joueur dans la ligne des scores
 					// correspond avec celui de la réponse traitée
-					if(scores[y].idJoueur === reponses[i].idJoueur ) {
-						idFromReponse = y;
-						// Dès que la position du joueur dans les scores et connue,
-						// on la place dans une variable et on sort de la boucle
+					if(!reponseProcessed)
+					{
+						if(y >= totalAnswers)
+						{
+							reponseProcessed = true;
+						}
+						else if(scores[i].idJoueur === reponses[y].idJoueur )
+						{
+							idFromReponse = y;
+							reponseProcessed = true;
+							// Dès que la position du joueur dans les scores et connue,
+							// on la place dans une variable et on sort de la boucle
+						}
+					}
+
+					if(reponseProcessed && jsonProcessed)
+					{
 						break;
 					}
 				}
@@ -363,10 +414,12 @@ function updateScore() {
 					// 1e réponse
 					if (answerCount[0][0] !== answerCount[1][0])
 					{
-						if(reponses[i].id == answerCount[0][1])
+						if(reponses[idFromReponse].id == answerCount[0][1])
 						{
-							scores[idFromReponse].score += 2; // 2 point pour la réponse majoritaire
-							++scores[idFromReponse].combo; // +1 au compteur de bonnes réponses consécutives
+							scores[i].score += 2; // 2 point pour la réponse majoritaire
+							jsonScores[idFromJson].score += 2;
+							++scores[i].combo; // +1 au compteur de bonnes réponses consécutives
+							addComboToScore(i, idFromJson);
 						}
 					}
 					else
@@ -376,10 +429,11 @@ function updateScore() {
 					// 2e réponse
 					if (answerCount[0][0] !== answerCount[1][0] && answerCount[1][0] !== answerCount[2][0])
 					{
-						if(reponses[i].id == answerCount[1][1])
+						if(reponses[idFromReponse].id == answerCount[1][1])
 						{
-							++scores[idFromReponse].score; // 1 point pour la deuxième réponse majoritaire
-							scores[idFromReponse].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
+							++scores[i].score; // 1 point pour la deuxième réponse majoritaire
+							++jsonScores[idFromJson].score;
+							scores[i].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
 						}
 					}
 					else
@@ -387,12 +441,14 @@ function updateScore() {
 						console.log('Egalité 2e rep <3');
 					}
 					// autre
-					if(reponses[i].id != answerCount[1][1] || reponses[i].id != answerCount[0][1])
+					if(reponses[idFromReponse].id != answerCount[1][1] || reponses[idFromReponse].id != answerCount[0][1])
 					{
-						scores[idFromReponse].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
+						scores[i].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
 					}
-
-					addComboToScore(idFromReponse);
+				}
+				else
+				{
+					scores[i].combo = 0;
 				}
 			}
 	}
@@ -401,21 +457,51 @@ function updateScore() {
 		if (answerCount[0][0] !== answerCount[1][0])
 		{
 			// Pour chaque réponse
-			for(i = 0; i < totalAnswers; ++i)
+			for(i = 0; i < totalScores; ++i)
 			{
 				// On suppose qu'une erreur intervient
 				var idFromReponse = -1;
-
+				var idFromJson = -1;
+				var jsonProcessed = false;
+				var reponseProcessed = false;
 				// On obtient la position du joueur dans le tableau des scores :
 				// Pour toute entrée dans le tableau des scores
-				for(var y = 0; y < scores.length; ++y)
+				for(var y = 0; y < totalMaxBound; ++y)
 				{
+					if(!jsonProcessed)
+					{
+						if(y >= totalJsonScores)
+						{
+							jsonScores.push(scores[i]);
+							idFromJson = totalJsonScores;
+							jsonProcessed = true;
+						}
+						else if(scores[i].idJoueur === jsonScores[y].idJoueur )
+						{
+							idFromJson = y;
+							jsonProcessed = true;
+						}
+					}
+
 					// On vérifie si l'id de joueur dans la ligne des scores
 					// correspond avec celui de la réponse traitée
-					if(scores[y].idJoueur === reponses[i].idJoueur ) {
-						idFromReponse = y;
-						// Dès que la position du joueur dans les scores et connue,
-						// on la place dans une variable et on sort de la boucle
+					if(!reponseProcessed)
+					{
+						if(y >= totalAnswers)
+						{
+							reponseProcessed = true;
+						}
+						else if(scores[i].idJoueur === reponses[y].idJoueur )
+						{
+							idFromReponse = y;
+							reponseProcessed = true;
+							// Dès que la position du joueur dans les scores et connue,
+							// on la place dans une variable et on sort de la boucle
+						}
+					}
+
+					if(reponseProcessed && jsonProcessed)
+					{
 						break;
 					}
 				}
@@ -423,17 +509,23 @@ function updateScore() {
 				if(idFromReponse !== -1)
 				{
 					// 1e réponse
-					if (reponses[i].id == answerCount[0][1]) // 1 point pour la réponse majoritaire
+					if (reponses[idFromReponse].id == answerCount[0][1]) // 1 point pour la réponse majoritaire
 					{
-						++scores[idFromReponse].score;
-						++scores[idFromReponse].combo; // +1 au compteur de bonnes réponses consécutives
+						++scores[i].score;
+						console.log(scores[i].score);
+						++jsonScores[idFromJson].score;
+						++scores[i].combo; // +1 au compteur de bonnes réponses consécutives
+						addComboToScore(i, idFromJson);
 					}
 					// autre
 					else
 					{
-						scores[idFromReponse].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
+						scores[i].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
 					}
-					addComboToScore(idFromReponse);
+				}
+				else
+				{
+					scores[i].combo = 0;
 				}
 			}
 		}
@@ -442,15 +534,19 @@ function updateScore() {
 			console.log('Egalité <3');
 		}
 	}
+	fs.writeFile(__dirname + '/ressources/data/scores_semaine.json', JSON.stringify(jsonScores, null, 4), function (err, data) {
+		if (err) throw err;
+	});
 }
 
-function addComboToScore(arrayID) {
+function addComboToScore(arrayID, jsonID) {
 	// points de combo :
 	// 2 points toutes les 2*n réponses cumulées de suite,
 	// à partir de 4 réponses de suite)
 	if(scores[arrayID].combo > 0 && scores[arrayID].combo % 2 == 0)
 	{
 		scores[arrayID].score += (scores[arrayID].combo/2)-1;
+		jsonScores[jsonID].score += (scores[arrayID].combo/2)-1;
 	}
 }
 
