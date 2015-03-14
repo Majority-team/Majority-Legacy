@@ -489,7 +489,7 @@ function seekMatchingEntries(idScore, totalJsonScores, totalAnswers)
 			{
 				// Si on est à la fin du tableau, l'utilisateur n'existe pas encore.
 				// On le crée, puis on termine cette vérification.
-				jsonScores.push(scores[idScore]);
+				jsonScores.push({"pseudo": scores[idScore].pseudo, "score": 0, "idJoueur": scores[idScore].idJoueur});
 				idJson = totalJsonScores;
 				jsonProcessed = true;
 			}
