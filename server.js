@@ -307,6 +307,7 @@ function chooseQuestion(question) {
 function updateScore() {
 	// nombre total de réponses enregistrées
 	var totalAnswers = reponses.length;
+	var totalScores = scores.length;
 
 	// tableau contenant l'id de chaque réponse et le nombre de voix pour chaque réponse
 	var answerCount  = [[0,1],[0,2],[0,3],[0,4]];
@@ -336,18 +337,18 @@ function updateScore() {
 	if(totalAnswers >= 6 && ratio_first_answer < 0.5 && ratio_second_answer >= 0.2)
 	{
 			// Pour chaque réponse
-			for(i = 0; i < totalAnswers; ++i)
+			for(i = 0; i < totalScores; ++i)
 			{
 				// On suppose qu'une erreur intervient
 				var idFromReponse = -1;
 
 				// On obtient la position du joueur dans le tableau des scores :
 				// Pour toute entrée dans le tableau des scores
-				for(var y = 0; y < scores.length; ++y)
+				for(var y = 0; y < totalAnswers; ++y)
 				{
 					// On vérifie si l'id de joueur dans la ligne des scores
 					// correspond avec celui de la réponse traitée
-					if(scores[y].idJoueur === reponses[i].idJoueur ) {
+					if(scores[i].idJoueur === reponses[y].idJoueur ) {
 						idFromReponse = y;
 						// Dès que la position du joueur dans les scores et connue,
 						// on la place dans une variable et on sort de la boucle
@@ -360,10 +361,11 @@ function updateScore() {
 					// 1e réponse
 					if (answerCount[0][0] !== answerCount[1][0])
 					{
-						if(reponses[i].id == answerCount[0][1])
+						if(reponses[idFromReponse].id == answerCount[0][1])
 						{
-							scores[idFromReponse].score += 2; // 2 point pour la réponse majoritaire
-							++scores[idFromReponse].combo; // +1 au compteur de bonnes réponses consécutives
+							scores[i].score += 2; // 2 point pour la réponse majoritaire
+							++scores[i].combo; // +1 au compteur de bonnes réponses consécutives
+							addComboToScore(i);
 						}
 					}
 					else
@@ -373,10 +375,10 @@ function updateScore() {
 					// 2e réponse
 					if (answerCount[0][0] !== answerCount[1][0] && answerCount[1][0] !== answerCount[2][0])
 					{
-						if(reponses[i].id == answerCount[1][1])
+						if(reponses[idFromReponse].id == answerCount[1][1])
 						{
-							++scores[idFromReponse].score; // 1 point pour la deuxième réponse majoritaire
-							scores[idFromReponse].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
+							++scores[i].score; // 1 point pour la deuxième réponse majoritaire
+							scores[i].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
 						}
 					}
 					else
@@ -384,12 +386,14 @@ function updateScore() {
 						console.log('Egalité 2e rep <3');
 					}
 					// autre
-					if(reponses[i].id != answerCount[1][1] || reponses[i].id != answerCount[0][1])
+					if(reponses[idFromReponse].id != answerCount[1][1] || reponses[idFromReponse].id != answerCount[0][1])
 					{
-						scores[idFromReponse].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
+						scores[i].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
 					}
-
-					addComboToScore(idFromReponse);
+				}
+				else
+				{
+					scores[i].combo = 0;
 				}
 			}
 	}
@@ -398,18 +402,18 @@ function updateScore() {
 		if (answerCount[0][0] !== answerCount[1][0])
 		{
 			// Pour chaque réponse
-			for(i = 0; i < totalAnswers; ++i)
+			for(i = 0; i < totalScores; ++i)
 			{
 				// On suppose qu'une erreur intervient
 				var idFromReponse = -1;
 
 				// On obtient la position du joueur dans le tableau des scores :
 				// Pour toute entrée dans le tableau des scores
-				for(var y = 0; y < scores.length; ++y)
+				for(var y = 0; y < totalAnswers; ++y)
 				{
 					// On vérifie si l'id de joueur dans la ligne des scores
 					// correspond avec celui de la réponse traitée
-					if(scores[y].idJoueur === reponses[i].idJoueur ) {
+					if(scores[i].idJoueur === reponses[y].idJoueur ) {
 						idFromReponse = y;
 						// Dès que la position du joueur dans les scores et connue,
 						// on la place dans une variable et on sort de la boucle
@@ -420,17 +424,21 @@ function updateScore() {
 				if(idFromReponse !== -1)
 				{
 					// 1e réponse
-					if (reponses[i].id == answerCount[0][1]) // 1 point pour la réponse majoritaire
+					if (reponses[idFromReponse].id == answerCount[0][1]) // 1 point pour la réponse majoritaire
 					{
-						++scores[idFromReponse].score;
-						++scores[idFromReponse].combo; // +1 au compteur de bonnes réponses consécutives
+						++scores[i].score;
+						++scores[i].combo; // +1 au compteur de bonnes réponses consécutives
+						addComboToScore(i);
 					}
 					// autre
 					else
 					{
-						scores[idFromReponse].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
+						scores[i].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
 					}
-					addComboToScore(idFromReponse);
+				}
+				else
+				{
+					scores[i].combo = 0;
 				}
 			}
 		}
