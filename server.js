@@ -246,7 +246,7 @@ function newGame() {
 
 // Fonction d'envoi des questions
 function sendQuestion() {
-	
+
 	// On compte les points si ce n'est pas la premiere question
 	if (first_question !== true)
 	{
@@ -329,15 +329,6 @@ function updateScore() {
 	var totalAnswers = reponses.length;
 	var totalJsonScores = jsonScores.length;
 
-	if(totalAnswers < totalJsonScores)
-	{
-		var totalMaxBound = totalJsonScores;
-	}
-	else
-	{
-		var totalMaxBound = totalAnswers;
-	}
-
 	// tableau contenant l'id de chaque réponse et le nombre de voix pour chaque réponse
 	var answerCount  = [[0,1],[0,2],[0,3],[0,4]];
 
@@ -368,64 +359,22 @@ function updateScore() {
 		// Pour chaque réponse
 		for(i = 0; i < totalScores; ++i)
 		{
-			// On suppose qu'une erreur intervient
-			var idFromReponse = -1;
-			var idFromJson = -1;
-			var jsonProcessed = false;
-			var reponseProcessed = false;
-			// On obtient la position du joueur dans le tableau des scores :
-			// Pour toute entrée dans le tableau des scores
-			for(var y = 0; y < totalMaxBound; ++y)
-			{
-				if(!jsonProcessed)
-				{
-					if(y >= totalJsonScores)
-					{
-						jsonScores.push(scores[i]);
-						idFromJson = totalJsonScores;
-						jsonProcessed = true;
-					}
-					else if(scores[i].idJoueur === jsonScores[y].idJoueur )
-					{
-						idFromJson = y;
-						jsonProcessed = true;
-					}
-				}
+			// On récupère l'index du joueur dans les différents tableaux à modifier.
+			var idsArray = seekMatchingEntries(i, totalJsonScores, totalAnswers);
+			var idRep = idsArray[0];
+			var idJson = idsArray[1];
 
-				// On vérifie si l'id de joueur dans la ligne des scores
-				// correspond avec celui de la réponse traitée
-				if(!reponseProcessed)
-				{
-					if(y >= totalAnswers)
-					{
-						reponseProcessed = true;
-					}
-					else if(scores[i].idJoueur === reponses[y].idJoueur )
-					{
-						idFromReponse = y;
-						reponseProcessed = true;
-						// Dès que la position du joueur dans les scores et connue,
-						// on la place dans une variable et on sort de la boucle
-					}
-				}
-
-				if(reponseProcessed && jsonProcessed)
-				{
-					break;
-				}
-			}
-
-			if(idFromReponse != -1)
+			if(idRep != -1 && idJson !== -1)
 			{
 				// 1e réponse
 				if (answerCount[0][0] !== answerCount[1][0])
 				{
-					if(reponses[idFromReponse].id == answerCount[0][1])
+					if(reponses[idRep].id == answerCount[0][1])
 					{
 						scores[i].score += 2; // 2 point pour la réponse majoritaire
-						jsonScores[idFromJson].score += 2;
+						jsonScores[idJson].score += 2;
 						++scores[i].combo; // +1 au compteur de bonnes réponses consécutives
-						addComboToScore(i, idFromJson);
+						addComboToScore(i, idJson);
 					}
 				}
 				else
@@ -435,10 +384,10 @@ function updateScore() {
 				// 2e réponse
 				if (answerCount[0][0] !== answerCount[1][0] && answerCount[1][0] !== answerCount[2][0])
 				{
-					if(reponses[idFromReponse].id == answerCount[1][1])
+					if(reponses[idRep].id == answerCount[1][1])
 					{
 						++scores[i].score; // 1 point pour la deuxième réponse majoritaire
-						++jsonScores[idFromJson].score;
+						++jsonScores[idJson].score;
 						scores[i].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
 					}
 				}
@@ -447,7 +396,7 @@ function updateScore() {
 					console.log('Egalité 2e rep <3');
 				}
 				// autre
-				if(reponses[idFromReponse].id != answerCount[1][1] || reponses[idFromReponse].id != answerCount[0][1])
+				if(reponses[idRep].id != answerCount[1][1] || reponses[idRep].id != answerCount[0][1])
 				{
 					scores[i].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
 				}
@@ -465,65 +414,28 @@ function updateScore() {
 			// Pour chaque réponse
 			for(i = 0; i < totalScores; ++i)
 			{
-				// On suppose qu'une erreur intervient
-				var idFromReponse = -1;
-				var idFromJson = -1;
-				var jsonProcessed = false;
-				var reponseProcessed = false;
-				// On obtient la position du joueur dans le tableau des scores :
-				// Pour toute entrée dans le tableau des scores
-				for(var y = 0; y < totalMaxBound; ++y)
-				{
-					if(!jsonProcessed)
-					{
-						if(y >= totalJsonScores)
-						{
-							jsonScores.push(scores[i]);
-							idFromJson = totalJsonScores;
-							jsonProcessed = true;
-						}
-						else if(scores[i].idJoueur === jsonScores[y].idJoueur )
-						{
-							idFromJson = y;
-							jsonProcessed = true;
-						}
-					}
+				// On récupère l'index du joueur dans les différents tableaux à modifier.
+				var idsArray = seekMatchingEntries(i, totalJsonScores, totalAnswers);
+				var idRep = idsArray[0];
+				var idJson = idsArray[1];
 
-					// On vérifie si l'id de joueur dans la ligne des scores
-					// correspond avec celui de la réponse traitée
-					if(!reponseProcessed)
-					{
-						if(y >= totalAnswers)
-						{
-							reponseProcessed = true;
-						}
-						else if(scores[i].idJoueur === reponses[y].idJoueur )
-						{
-							idFromReponse = y;
-							reponseProcessed = true;
-							// Dès que la position du joueur dans les scores et connue,
-							// on la place dans une variable et on sort de la boucle
-						}
-					}
-
-					if(reponseProcessed && jsonProcessed)
-					{
-						break;
-					}
-				}
-
-				if(idFromReponse !== -1)
+				if(idRep !== -1 && idJson !== -1)
 				{
 					// 1e réponse
-					if (reponses[idFromReponse].id == answerCount[0][1]) // 1 point pour la réponse majoritaire
+					if (reponses[idRep].id == answerCount[0][1]) // 1 point pour la réponse majoritaire
 					{
+						console.log(scores[i].score);
+						console.log(jsonScores[idJson].score);
 						++scores[i].score;
-						++jsonScores[idFromJson].score;
-
+						console.log(scores[i].score);
+						console.log(jsonScores[idJson].score);
+						++jsonScores[idJson].score;
+						console.log(scores[i].score);
+						console.log(jsonScores[idJson].score);
 /********************************************* erreur score (penser a la corriger pour quand on est plus de 6 !) ***************************************************/
 
 						++scores[i].combo; // +1 au compteur de bonnes réponses consécutives
-						addComboToScore(i, idFromJson);
+						addComboToScore(i, idJson);
 					}
 					// autre
 					else
@@ -558,6 +470,66 @@ function addComboToScore(arrayID, jsonID) {
 	}
 }
 
+function seekMatchingEntries(idScore, totalJsonScores, totalAnswers)
+{
+	// On initialise les id en erreur (-1)
+	var idRep = -1;
+	var idJson = -1;
+	// Aucune vérification de tableau n'est terminée
+	var jsonProcessed = false;
+	var reponseProcessed = false;
+	// On parcourt les deux tableau (réponses et Json) simultanément
+	// On utilise une boucle infinie pour incrémenter l'index recherché
+	for(var y = 0; 1==1 ; ++y)
+	{
+		// Si cette vérification n'est pas terminée
+		if(!jsonProcessed)
+		{
+			if(y >= totalJsonScores)
+			{
+				// Si on est à la fin du tableau, l'utilisateur n'existe pas encore.
+				// On le crée, puis on termine cette vérification.
+				jsonScores.push(scores[idScore]);
+				idJson = totalJsonScores;
+				jsonProcessed = true;
+			}
+			else if(scores[idScore].idJoueur === jsonScores[y].idJoueur )
+			{
+				// Si l'utilisateur existe, on renseigne son index
+				// et on arrête cette vérification.
+				idJson = y;
+				jsonProcessed = true;
+			}
+		}
+
+		// Si cette vérification n'est pas terminée
+		if(!reponseProcessed)
+		{
+			if(y >= totalAnswers)
+			{
+				// Si on est à la fin du tableau, l'utilisateur n'a pas répondu.
+				// On termine cette vérification en laissant l'erreur (-1) en index.
+				reponseProcessed = true;
+			}
+			else if(scores[idScore].idJoueur === reponses[y].idJoueur )
+			{
+				// Si l'utilisateur existe, on renseigne son index
+				// et on arrête cette vérification.
+				idRep = y;
+				reponseProcessed = true;
+			}
+		}
+
+		// Si toutes les vérifications sont terminées, on casse la boucle infinie.
+		if(reponseProcessed && jsonProcessed)
+		{
+			break;
+		}
+	}
+
+	// On renvoie les index correspondant au joueur traité dans les différents tableaux
+	return [idRep, idJson];
+}
 
 // Lancement du serveur sur le port 8080
 server.listen(8080);
