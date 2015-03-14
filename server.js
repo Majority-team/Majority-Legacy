@@ -200,11 +200,28 @@ io.on('connection', function (socket, pseudo) {
 	// Reponse envoyée
 	socket.on('answer', function (idReponse) {
 
-		// On note l'id de la reponse
-		reponses.push({"id": idReponse, "pseudo": socket.pseudo, "idJoueur": socket.idJoueur});
+		if (socket.pseudo !== undefined || socket.idJoueur !== undefined)
+		{
+			// On note l'id de la reponse
+			reponses.push({"id": idReponse, "pseudo": socket.pseudo, "idJoueur": socket.idJoueur});
 
-		// On actualise les joueurs par réponse pour chaque client
-		io.emit('joueurs_par_reponses', reponses);
+			// On actualise les joueurs par réponse pour chaque client
+			io.emit('joueurs_par_reponses', reponses);
+		}
+		else
+		{
+			// On ajoute au tableau des scores un nouveau joueur
+			socket.pseudo = "Anonyme" + (scores.length + 1);
+			socket.idJoueur = scores.length + 1;
+
+			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0});
+
+			// On note l'id de la reponse
+			reponses.push({"id": idReponse, "pseudo": socket.pseudo, "idJoueur": socket.idJoueur});
+
+			// On actualise les joueurs par réponse pour chaque client
+			io.emit('joueurs_par_reponses', reponses);
+		}
 	});
 });
 
