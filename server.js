@@ -284,16 +284,17 @@ function sendQuestion() {
 		// On réinitialise les questions utilisées
 		questionsUtilisees = [];
 
-		// On réinitialise les scores
-		for(i = 0; i < scores.length; ++i)
-		{
-			scores[i].score = 0;
-		}
-
 		// On enregistre les scores de la partie dans le JSON "partie précédente"
 		fs.writeFile(__dirname + '/ressources/data/partie_precedente.json', JSON.stringify(scores, null, 4), function (err, data) {
 			if (err) throw err;
 		});
+
+		// On réinitialise les scores
+		for(i = 0; i < scores.length; ++i)
+		{
+			scores[i].score = 0;
+			scores[i].combo = 0;
+		}
 	}
 }
 
@@ -424,16 +425,8 @@ function updateScore() {
 					// 1e réponse
 					if (reponses[idRep].id == answerCount[0][1]) // 1 point pour la réponse majoritaire
 					{
-						console.log(scores[i].score);
-						console.log(jsonScores[idJson].score);
 						++scores[i].score;
-						console.log(scores[i].score);
-						console.log(jsonScores[idJson].score);
 						++jsonScores[idJson].score;
-						console.log(scores[i].score);
-						console.log(jsonScores[idJson].score);
-/********************************************* erreur score (penser a la corriger pour quand on est plus de 6 !) ***************************************************/
-
 						++scores[i].combo; // +1 au compteur de bonnes réponses consécutives
 						addComboToScore(i, idJson);
 					}
@@ -451,9 +444,10 @@ function updateScore() {
 		}
 		else
 		{
-			console.log('Egalité <3');
+			console.log(totalAnswers);
 		}
 	}
+	console.log('Egalité 1e rep <3');
 	fs.writeFile(__dirname + '/ressources/data/scores_semaine.json', JSON.stringify(jsonScores, null, 4), function (err, data) {
 		if (err) throw err;
 	});
@@ -470,7 +464,7 @@ function addComboToScore(arrayID, jsonID) {
 	}
 }
 
-function seekMatchingEntries(idScore, totalJsonScores, totalAnswers)
+function seekMatchingEntries(idScore, totalJson, totalAns)
 {
 	// On initialise les id en erreur (-1)
 	var idRep = -1;
@@ -485,12 +479,12 @@ function seekMatchingEntries(idScore, totalJsonScores, totalAnswers)
 		// Si cette vérification n'est pas terminée
 		if(!jsonProcessed)
 		{
-			if(y >= totalJsonScores)
+			if(y >= totalJson)
 			{
 				// Si on est à la fin du tableau, l'utilisateur n'existe pas encore.
 				// On le crée, puis on termine cette vérification.
-				jsonScores.push({"pseudo": scores[idScore].pseudo, "score": 0, "idJoueur": scores[idScore].idJoueur});
-				idJson = totalJsonScores;
+				jsonScores.push({"pseudo": scores[idScore].pseudo, "score": 0, "idJoueur": scores[idScore].idJoueur, "photo": scores[idScore].photo});
+				idJson = totalJson;
 				jsonProcessed = true;
 			}
 			else if(scores[idScore].idJoueur === jsonScores[y].idJoueur )
@@ -505,7 +499,7 @@ function seekMatchingEntries(idScore, totalJsonScores, totalAnswers)
 		// Si cette vérification n'est pas terminée
 		if(!reponseProcessed)
 		{
-			if(y >= totalAnswers)
+			if(y >= totalAns)
 			{
 				// Si on est à la fin du tableau, l'utilisateur n'a pas répondu.
 				// On termine cette vérification en laissant l'erreur (-1) en index.
