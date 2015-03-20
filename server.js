@@ -319,6 +319,14 @@ function chooseQuestion(question) {
 	return question;
 }
 
+
+
+
+/********************************* Comptage des points *************************************/
+
+
+
+
 function updateScore() {
 
 	fs.readFile(__dirname + '/ressources/data/scores_semaine.json', function (err, data) {
@@ -380,7 +388,7 @@ function updateScore() {
 				}
 				else
 				{
-					console.log('Egalité 1e rep <3');
+					console.log('Egalité 1e rep (mode massif)');
 				}
 				// 2e réponse
 				if (answerCount[0][0] !== answerCount[1][0] && answerCount[1][0] !== answerCount[2][0])
@@ -394,7 +402,7 @@ function updateScore() {
 				}
 				else
 				{
-					console.log('Egalité 2e rep <3');
+					console.log('Egalité 2e rep (mode massif)');
 				}
 				// autre
 				if(reponses[idRep].id != answerCount[1][1] || reponses[idRep].id != answerCount[0][1])
@@ -444,10 +452,9 @@ function updateScore() {
 		}
 		else
 		{
-			console.log(totalAnswers);
+			console.log('Egalité 1e rep (mode privé)');
 		}
 	}
-	console.log('Egalité 1e rep <3');
 	fs.writeFile(__dirname + '/ressources/data/scores_semaine.json', JSON.stringify(jsonScores, null, 4), function (err, data) {
 		if (err) throw err;
 	});
