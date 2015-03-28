@@ -135,7 +135,7 @@ app.get('/logout', function (req, res) {
 var question = {},
 	questionsUtilisees = [],
 	questions = [],
-	questionsParPartie = 3,
+	questionsParPartie = 10,
 	tempsParQuestion = 8000,
 	tempsEntreParties = 10000,
 	lancerLesQuestions = null,
@@ -269,7 +269,7 @@ function sendQuestion() {
 		question = chooseQuestion(question);
 
 		// On envoie la question
-		io.emit('new_question', {"question": question, "temps": tempsParQuestion});
+		io.emit('new_question', {"question": question, "temps": tempsParQuestion, "numero": questionsUtilisees.length});
 	}
 	else
 	{

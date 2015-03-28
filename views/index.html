@@ -7,31 +7,96 @@
 				<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 			<![endif]-->
 	<link href="stylesheets/main.css" media="all" rel="stylesheet" type="text/css" />
+	<link href="stylesheets/fancybox.css" media="all" rel="stylesheet" type="text/css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 	<link rel="apple-touch-icon-precomposed" href="/images/logo.png" />
 	<link rel="icon" type="image/png" href="/images/logo.png" />
+	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 </head>
 <body>
-	<section>
-		<a href="/auth/google"><button>Google</button></a>
-		<a href="/auth/twitter"><button id="twitter">Twitter</button></a>
-		<a href="/auth/facebook"><button id="facebook">Facebook</button></a>
-		<a href="/logout"><button>Log Out</button></a>
 
-		<article id="questionnaire">
-			<p id="question">
-				<strong></strong>
+	<!-- ******************* Message banniere cookie ******************* -->
+    <div class="ui-widget">
+  		<div class="cookie-message ui-widget-header blue">
+			<p>
+				Les cookies assurent le bon fonctionnement de nos services. En poursuivant sur ce site, vous acceptez l'utilisation des cookies.
 			</p>
-			<ul id="reponses">
-				<li class="reponse" id="reponse1"></li>
-				<li class="reponse" id="reponse2"></li>
-				<li class="reponse" id="reponse3"></li>
-				<li class="reponse" id="reponse4"></li>
+			<a href="#inline" class="fancybox">En savoir plus</a>
+			<div id="inline" style="width:400px;display: none;">
+				<h3>En savoir plus</h3>
+				<p>
+					Les cookies nous servent pour vous connecter, pour nos scores.
+				</p>
+			</div>
+  		</div>
+    </div>
+
+	<header>
+		<h1>Majority legacy</h1>
+		<h2 id="connected-as">
+			Connecté en tant que:  <span id="pseudo-utilisateur"></span>
+		</h2>
+
+		<div class="boutons-connexion">
+	  		<a href="/auth/facebook"><span class="bouton-connexion" id="bouton-fb">f</span></a>
+	  		<a href="/auth/twitter"><span class="bouton-connexion" id="bouton-twitter">t</span></a>
+	  		<a href="/auth/google"><span class="bouton-connexion" id="bouton-google">g+</span></a>
+	  		<a href="/logout"><button>Log Out</button></a>
+		</div>
+
+		<div>
+			<a href="Logo.png" class="fancybox" data-fancybox-group="gallery" style="text-decoration:none;font-family:'Lobster';font-size: 40px; color:#ffffff">Comment jouer ?</a>
+			<a class="fancybox" data-fancybox-group="gallery" href="Moke-up-2.gif"></a>
+		</div>
+	</header>
+	
+	<section>
+		<article id="classement">
+			<div class="classement" id="classement-partie">Cette partie</div>
+			<div class="classement" id="classement-partie-precedente">Partie précedente</div>
+			<div class="classement" id="classement-semaine">Cette semaine</div>
+		</article>
+		
+		<article id="question">
+			<h2 id="question-number">Question ???</h2>
+			<span id="question-text">Ceci est une question</span>
+		</article>
+		
+		<article id="contour-timer">
+			<div id="timer-vide">
+				<div id="timer-plein"></div>
+			</div>
+		</article>
+		
+		<article id="reponses">
+			<ul>
+				<li class="button-reponse noselect" id="reponse1">
+					<span class="reponse">Ceci est la reponse numero 1</span>
+					<ul class="joueurs-dans-la-reponse" id="joueurs-dans-la-reponse1"></ul>
+				</li>
+				<li class="button-reponse noselect" id="reponse2">
+					<span class="reponse">Ceci est la reponse numero 2</span>
+					<ul class="joueurs-dans-la-reponse" id="joueurs-dans-la-reponse2"></ul>
+				</li>
+				<li class="button-reponse noselect" id="reponse3">
+					<span class="reponse">Ceci est la reponse numero 3</span>
+					<ul class="joueurs-dans-la-reponse" id="joueurs-dans-la-reponse3"></ul>
+				</li>
+				<li class="button-reponse noselect" id="reponse4">
+					<span class="reponse">Ceci est la reponse numero 4</span>
+					<ul class="joueurs-dans-la-reponse" id="joueurs-dans-la-reponse4"></ul>
+				</li>
 			</ul>
 		</article>
 	</section>
 
-	<script src="/jsmin/jquery-1.10.2.min.js"></script>
+	<footer>
+		<span>Créé dans le cadre d'un projet ISN. Tous droits réservés</span>
+	</footer>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="/js/jquery.cookieBar.js"></script>
+	<script src="/js/jquery.fancybox.pack.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/js/app.js"></script>
 </body>
