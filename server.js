@@ -327,12 +327,12 @@ function chooseQuestion(question) {
 
 
 
-function updateScore() {
-
-	fs.readFile(__dirname + '/ressources/data/scores_semaine.json', function (err, data) {
-		if (err) throw err;
-		jsonScores = JSON.parse(data);
-	});
+function updateScore()
+{
+fs.readFile(__dirname + '/ressources/data/scores_semaine.json', function (err, data)
+{
+	if (err) throw err;
+	jsonScores = JSON.parse(data);
 
 	var totalScores = scores.length;
 	var totalAnswers = reponses.length;
@@ -458,6 +458,7 @@ function updateScore() {
 	fs.writeFile(__dirname + '/ressources/data/scores_semaine.json', JSON.stringify(jsonScores, null, 4), function (err, data) {
 		if (err) throw err;
 	});
+});
 }
 
 function addComboToScore(arrayID, jsonID) {
