@@ -215,27 +215,26 @@ io.on('connection', function (socket, pseudo) {
 			socket.pseudo = "Anonyme" + (scores.length + 1);
 			socket.idJoueur = scores.length + 1;
 			socket.photo = "/images/logo.png";
-			var shallipass = true;
 
-			for(var i = 0; i < scores.length; ++i)
-			{
-				if(socket.idJoueur == scores[i].idJoueur)
-				{
-					shallipass = false;
-					break;
-				}
-			}
+			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo});
+		}
 
-			if(shallipass)
+		var shallipass = true;
+
+		for(var i = 0; i < reponses.length; ++i)
+		{
+			if(socket.idJoueur == reponses[i].idJoueur)
 			{
-				scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo});
+				shallipass = false;
+				break;
 			}
 		}
 
-
+		if(shallipass)
+		{
 		// On note l'id de la reponse
 		reponses.push({"id": idReponse, "pseudo": socket.pseudo, "idJoueur": socket.idJoueur, "photo": socket.photo});
-
+		}
 		// On actualise les joueurs par réponse pour chaque client
 		io.emit('joueurs_par_reponses', reponses);
 
