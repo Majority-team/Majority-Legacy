@@ -4,6 +4,8 @@ $(function(){
 	var pseudo = "";
 	var answered = false;
 
+	$('#bouton-logout').hide();
+
 	// Connexion à socket.io
 	var socket = io.connect();
 
@@ -43,6 +45,12 @@ $(function(){
 	socket.on('pseudo_joueur', function (data) {
 		pseudo = data;
 		$('#pseudo-utilisateur').html(pseudo);
+
+		if (!/Anonyme[\d]+/g.test(pseudo))
+		{
+			$('#bouton-logout').toggle();
+			$('.bouton-connexion').toggle();
+		}
 	});
 
 	$('#reponse1').click(function(){
