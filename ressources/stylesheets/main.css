@@ -1,220 +1,213 @@
 @media screen and (max-width: 720px)
 {
-    #classement-semaine
-    {
-        display: none;
-        margin:auto;
-    }
-           
+	#classement-semaine
+	{
+		display: none;
+		margin:auto;
+	}
+		   
 }
 @media screen and (max-width: 480px)
 {
-    #classement-partie-precedente
-    {
-        display: none;
-        margin: auto;
+	#classement-partie-precedente
+	{
+		display: none;
+		margin: auto;
 
-    }   
-}
-
-.cookie-message
-{
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    padding:0 85px 0 20px;
-    background:#fff;
-    border-bottom:1px solid #ccc;
-    box-shadow:0px 0px 3px #ffffff;
-    z-index: 99;
-}
-
-.cookie-message a 
-{
-    position:relative;
-    top:0;
-    cursor:pointer;
-}
-
-.cookie-message p, .cookie-message a 
-{
-    color:#333;
-    font:bold 11px/18px Arial;
-    top:0;
-    margin:0 0 0 0;
-}
-
-.blue {
-    border-bottom:1px solid #0E83AE;
-    background-color:#0990c3;
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #0e83ae), color-stop(50%, #0990c3), color-stop(100%, #0e9dd2));
-    background: -webkit-linear-gradient(#0e83ae, #0990c3, #0e9dd2);
-    background: -moz-linear-gradient(#0e83ae, #0990c3, #0e9dd2);
-    background: -o-linear-gradient(#0e83ae, #0990c3, #0e9dd2);
-    background: -ms-linear-gradient(#0e83ae, #0990c3, #0e9dd2);
-    background: linear-gradient(#0e83ae, #0990c3, #0e9dd2);
-}
-
-.blue p, .blue a 
-{
-    color:#fff; 
+	}   
 }
 
 body
 {
-    text-align: center;
-    max-width: 900px;
-    margin: auto;
-    font-family: "Trebuchet ms";
-    font-size: 15px;
-    color:#ffffff;
-    background-color: #111111;
+	text-align: center;
+	max-width: 900px;
+	margin: auto;
+	font-family: "Trebuchet ms";
+	font-size: 15px;
+	color:#ffffff;
+	background-color: #111111;
 }
 
 h1
 {
-    font-size: 48px;
-    font-family: "Lobster";
-    text-shadow: 0 3px #777777;
-    margin: 30px 0 20px 0;
+	font-size: 48px;
+	font-family: "Lobster";
+	text-shadow: 0 3px #777777;
+	margin: 30px 0 20px 0;
 }
 
 section
 {
-    width: 100%;
-    padding: 0 5%;
-    box-sizing: border-box;
+	width: 100%;
+	padding: 0 5%;
+	box-sizing: border-box;
 }
 
 article
 {
-    margin: 30px 0;
+	margin: 30px 0;
 }
 
 h2
 {
-    text-align: center;
-    font-size: 10px;
-    font-family:"Trebuchet MS";
+	text-align: center;
+	font-size: 10px;
+	font-family:"Trebuchet MS";
+}
+
+a
+{
+	text-decoration: none;
 }
 
 .boutons-connexion
 {
-    display: block;
-    text-align: center;
-    width: 100%;
-    margin: 10px 0;
+	display: block;
+	text-align: center;
+	width: 100%;
+	margin: 10px 0;
 }
 
 .bouton-connexion
 {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    box-sizing: border-box;
-    padding: 8px 0 0 0;
-    border-radius: 50px;
-    font-size: 12px;
-    cursor: pointer;
-    color: #ffffff;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	box-sizing: border-box;
+	padding: 8px 0 0 0;
+	border-radius: 50px;
+	font-size: 12px;
+	cursor: pointer;
+	color: #ffffff;
+}
+
+.bouton-connexion:hover
+{
+	position: relative;
+	top: 2px;
+}
+
+#bouton-logout
+{
+	background-color: #FF6600;
+	box-shadow: 0 5px #984D02;
+	border-radius: 10px;
+	box-sizing: border-box;
+	padding: 8px 12px 6px 12px;
+	font-size: 12px;
+	cursor: pointer;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+#bouton-logout:hover
+{
+	background-color: #984D02;
+	box-shadow: 0 3px #883D00;
+	position: relative;
+	top: 2px;
 }
 
 #bouton-fb
 {
-    font-family: "Arial" ;  
-    font-weight: bold;
-    background-color: #132F83;
-    box-shadow: 0 3px #0A145C;
+	font-family: "Arial" ;  
+	font-weight: bold;
+	background-color: #132F83;
+	box-shadow: 0 5px #0A145C;
 }
 
 #bouton-fb:hover
 {
-    background-color: #0A145C;
-    box-shadow: 0 3px #000011;
+	background-color: #0A145C;
+	box-shadow: 0 3px #000011;
 }
 
 #bouton-twitter
 {
-    font-family: "Verdana";
-    font-weight: bold;  
-    background-color: #6699FF;
-    box-shadow: 0 3px #2255bb;
+	font-family: "Verdana";
+	font-weight: bold;  
+	background-color: #6699FF;
+	box-shadow: 0 5px #2255bb;
 }
 
 #bouton-twitter:hover
 {
-    background-color: #2255bb;
-    box-shadow: 0 3px #003399;
+	background-color: #2255bb;
+	box-shadow: 0 3px #003399;
 }
 
 #bouton-google
 {
-    font-family: "Trebuchet ms";
-    font-weight: bold;
-    background-color: #880000;
-    box-shadow: 0 3px #550000; 
+	font-family: "Trebuchet ms";
+	font-weight: bold;
+	background-color: #880000;
+	box-shadow: 0 5px #550000; 
 }
 
 #bouton-google:hover
 {
-    background-color: #550000;
-    box-shadow: 0 3px #330000;
+	background-color: #550000;
+	box-shadow: 0 3px #330000;
 }
 
 
 .classement
 {
-    width: 30%;
-    height: 200px;
-    border-radius: 5px;
-    font-size: 15px;
-    padding: 15px 10px;
-    display: inline-block;
-    box-sizing: border-box;
+	width: 30%;
+	height: 200px;
+	border-radius: 5px;
+	font-size: 15px;
+	padding: 15px 10px;
+	display: inline-block;
+	box-sizing: border-box;
 }
 
 #classement-partie
 {
-    background-color: #E7494A;
-    box-shadow: 0 5px #82292D;
-    margin: 0;
+	background-color: #E7494A;
+	box-shadow: 0 7px #82292D;
+	margin: 0;
 }
 
 #classement-partie-precedente
 {
-    background-color: #BB2F30;
-    box-shadow: 0 5px #5F1E1C;
-    margin: 0 4%;
+	background-color: #BB2F30;
+	box-shadow: 0 7px #5F1E1C;
+	margin: 0 4%;
 }
 
 #classement-semaine
 {
-    background-color: #9C2527;
-    box-shadow: 0 5px #491110;
-    margin: 0;
+	background-color: #9C2527;
+	box-shadow: 0 7px #491110;
+	margin: 0;
 }
 
 #question
 {
-    height: 180px;
-    background: #003664;
-    border-radius: 5px;
-    padding: 20px 25px;
-    box-shadow: 0 5px #092032;
-    box-sizing: border-box;
+	height: 140px;
+	background: #778899;
+	border-radius: 5px;
+	padding: 20px 25px;
+	box-shadow: 0 7px #696969;
+	box-sizing: border-box;
 }
 
 #question-number
 {
-    font-size: 20px;
+	font-size: 23px;
+}
+
+#question-text
+{
+	font-size: 18px;
 }
 
 footer
 {
-    font-size:10px;
-    margin: 20px 0;
+	font-size:10px;
+	margin: 20px 0;
 }
 
 
@@ -223,140 +216,129 @@ footer
 
 .reponse
 {
-    display: block;
-    width: 100%;
-    height: 100%;
+	display: block;
+	width: 100%;
+	height: 100%;
 }
 
 #reponses
 {
-    display: block;
-    width: 100%;
-    text-align: center;
-    cursor: pointer;
-    margin: 20px auto;
+	display: block;
+	width: 100%;
+	text-align: center;
+	cursor: pointer;
 }
 
 .button-reponse
 {
-    min-height: 50px;
-    display: inline-block;
-    vertical-align: top;
-    color: #FFFFFF;
-    padding: 10px 15px;
-    box-sizing: border-box;
-    border-radius: 8px;
-    box-shadow: 0 7px #696969;
-    background: #778899;
-    width: 23%;
-    font-size: 13px;
-    line-height: 15px;
+	min-height: 50px;
+	display: inline-block;
+	vertical-align: top;
+	color: #FFFFFF;
+	padding: 10px 15px;
+	box-sizing: border-box;
+	border-radius: 8px;
+	box-shadow: 0 7px #696969;
+	background: #778899;
+	width: 23%;
+	font-size: 13px;
+	line-height: 15px;
 }
 
 .button-reponse:nth-child(1)
 {
-    margin: 0 0.9% 0 0;
+	margin: 0 1% 0 0;
 }
 
 .button-reponse:nth-child(2), .button-reponse:nth-child(3)
 {
-    margin: 0 0.9%;
+	margin: 0 1%;
 }
 
 .button-reponse:nth-child(4)
 {
-    margin: 0 0 0 0.9%;
+	margin: 0 0 0 1%;
 }
 
 #reponses ul
 {
-    list-style-type: none;
-    padding: 0;
+	list-style-type: none;
+	padding: 0;
 }
 
 .button-reponse:hover
 {
-    color: #FFFFFF;
-    background: #FF6600;
-    border-radius: 8px;
-    box-shadow: 0 5px #984D02;
-    position: relative;
-    top: 2px;
+	color: #FFFFFF;
+	background: #FF6600;
+	border-radius: 8px;
+	box-shadow: 0 5px #984D02;
+	position: relative;
+	top: 2px;
 }
-
-/*.button-reponse:active
-{
-    color:#FFFFFF;
-    background: #4BD718;
-    border-radius: 8px;
-    box-shadow: 0 5px #009933;
-    position: relative;
-    top: 2px;
-}*/
 
 #contour-timer
 {
-    width: 100%;
-    height: 60px;
-    background-color: #FFFFFF;
-    box-shadow: 0 10px #999999;
-    border-radius: 5px;
-    margin: 0 auto;
-    padding: 13px 15px 7px 15px;
-    box-sizing: border-box;
+	width: 100%;
+	height: 60px;
+	background-color: #FFFFFF;
+	box-shadow: 0 7px #999999;
+	border-radius: 5px;
+	margin: 0 auto;
+	padding: 13px 15px 7px 15px;
+	box-sizing: border-box;
 }
 
 #timer-vide
 {
-    width: 100%;
-    height: 90%;
-    background-color: #cccccc;
-    box-shadow: 0 -5px #999999;
-    border-radius: 5px;
+	width: 100%;
+	height: 90%;
+	background-color: #cccccc;
+	box-shadow: 0 -3px #999999;
+	border-radius: 5px;
 }
 
 #timer-plein
 {
-    width: 0;
-    height: 100%;
-    background-color: #19A347;
-    box-shadow: 0 -5px #008A2E;
-    border-radius: 5px;
+	width: 0;
+	height: 100%;
+	background-color: #19A347;
+	box-shadow: 0 -3px #008A2E;
+	border-radius: 5px;
 }
 
 .noselect
 {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .joueurs-dans-la-reponse
 {
-    display: none;
-    text-align: left;
+	display: none;
+	text-align: left;
 }
 
 .joueurs-dans-la-reponse li
 {
-    margin: 5px 0;
+	margin: 5px 0;
 }
 
 .photo-joueur
 {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border-radius: 50px;
-    vertical-align: middle;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border-radius: 50px;
+	vertical-align: middle;
 }
 
 .pseudo-joueur
 {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0 0 0 10px;
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 0 0 10px;
 }
