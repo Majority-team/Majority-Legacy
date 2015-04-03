@@ -215,8 +215,21 @@ io.on('connection', function (socket, pseudo) {
 			socket.pseudo = "Anonyme" + (scores.length + 1);
 			socket.idJoueur = scores.length + 1;
 			socket.photo = "/images/logo.png";
+			var shallipass = true;
 
-			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo});
+			for(var i = 0; i < scores.length; ++i)
+			{
+				if(socket.idJoueur == scores[i].idJoueur)
+				{
+					shallipass = false;
+					break;
+				}
+			}
+
+			if(shallipass)
+			{
+				scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo});
+			}
 		}
 
 
