@@ -6,9 +6,9 @@
 	<!--[if lt IE 9]>
 				<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 			<![endif]-->
-	<link href="stylesheets/main.css" media="all" rel="stylesheet" type="text/css" />
-	<link href="stylesheets/fancybox.css" media="all" rel="stylesheet" type="text/css" />
-	<link href="stylesheets/cookie.css" media="all" rel="stylesheet" type="text/css" />
+	<link href="css/main.css" media="all" rel="stylesheet" type="text/css" />
+	<link href="css/fancybox.css" media="all" rel="stylesheet" type="text/css" />
+	<link href="css/cookie.css" media="all" rel="stylesheet" type="text/css" />
 	<link rel="apple-touch-icon-precomposed" href="/images/logo.png" />
 	<link rel="icon" type="image/png" href="/images/logo.png" />
 	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
@@ -51,9 +51,42 @@
 	
 	<section>
 		<article id="classement">
-			<div class="classement" id="classement-partie">Cette partie</div>
-			<div class="classement" id="classement-partie-precedente">Partie précedente</div>
-			<div class="classement" id="classement-semaine">Cette semaine</div>
+			<div class="classement" id="classement-partie">
+				<h3>Partie en cours</h3>
+				<ul>
+					<li>
+				    	<div class="joueur-classement">
+				    		<span class="position-classement">1.</span>
+				    		<span class="pseudo-classement">Pseudo 1</span>
+				    	</div>
+				    	<span class="score-classement">123 pt</span>
+					</li>
+				</ul>
+			</div>
+			<div class="classement" id="classement-partie-precedente">
+				<h3>Partie précédente</h3>
+				<ul>
+					<li>
+				    	<div class="joueur-classement">
+				    		<span class="position-classement">1.</span>
+				    		<span class="pseudo-classement">Pseudo 1</span>
+				    	</div>
+				    	<span class="score-classement">123 pt</span>
+					</li>
+				</ul>
+			</div>
+			<div class="classement" id="classement-semaine">
+				<h3>Semaine en cours</h3>
+				<ul>
+					<li>
+				    	<div class="joueur-classement">
+				    		<span class="position-classement">1.</span>
+				    		<span class="pseudo-classement">Pseudo 1</span>
+				    	</div>
+				    	<span class="score-classement">123 pt</span>
+					</li>
+				</ul>
+			</div>
 		</article>
 		
 		<article id="question">
@@ -94,9 +127,9 @@
 	</footer>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="/js/jquery.cookieBar.js"></script>
-	<script src="/js/jquery.fancybox.pack.js"></script>
+	<script src="/js/jquery.cookieBar.min.js"></script>
+	<script src="/js/jquery.fancybox.pack.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
-	<script src="/js/app.js"></script>
+	<script src="/js/app.min.js"></script>
 </body>
 </html>

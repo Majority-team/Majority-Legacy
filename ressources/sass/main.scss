@@ -61,6 +61,35 @@ a
 	color: #ffffff;
 }
 
+h3
+{
+	margin: 0 0 18px 0;
+}
+
+.classement ul
+{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	text-align: left;
+}
+
+.joueur-classement
+{
+	display: inline-block;
+}
+
+.position-classement
+{
+	margin: 0 5px 0 0;
+}
+
+.score-classement
+{
+	float: right;
+	display: inline-block;
+}
+
 .boutons-connexion
 {
 	display: block;
@@ -156,10 +185,10 @@ a
 .classement
 {
 	width: 30%;
-	height: 200px;
+	height: 250px;
 	border-radius: 5px;
 	font-size: 15px;
-	padding: 15px 10px;
+	padding: 18px;
 	display: inline-block;
 	box-sizing: border-box;
 }
