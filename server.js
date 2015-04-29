@@ -174,7 +174,7 @@ io.on('connection', function (socket, pseudo) {
 		if (socket.handshake.session.passport.user === undefined)
 		{
 			// On ajoute au tableau des scores un nouveau joueur
-			socket.pseudo = "Anonyme" + (scores.length + 1);
+			socket.pseudo = "Anonyme " + (scores.length + 1);
 			socket.idJoueur = scores.length + 1;
 			socket.photo = "/images/logo.png";
 
@@ -204,6 +204,7 @@ io.on('connection', function (socket, pseudo) {
 
 		// On envoie le pseudo du joueur au joueur
 		socket.emit('pseudo_joueur', socket.pseudo);
+		socket.emit('scores_partie', scores);
 	});
 
 	// Reponse envoyée
@@ -223,7 +224,6 @@ io.on('connection', function (socket, pseudo) {
 
 		// On actualise les joueurs par réponse pour chaque client
 		io.emit('joueurs_par_reponses', reponses);
-
 	});
 });
 
@@ -250,7 +250,7 @@ function sendQuestion() {
 	{
 		// On actualise les score à partir des résultats de la question précédente
 		updateScore();
-		console.log(scores);
+		io.emit('scores_partie', scores);
 	}
 	else
 	{

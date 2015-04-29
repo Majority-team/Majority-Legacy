@@ -42,11 +42,133 @@ $(function(){
     	}
 	});
 
+	socket.on('scores_partie', function (data) {
+
+		var scores = data;
+		var premierId = -1;
+		var secondId = -1;
+		var troisiemeId = -1;
+		var clientId = -1;
+
+		for (var i = 0; i < scores.length; i++)
+		{
+			if (premierId < 0)
+			{
+				premierId = i;
+			}
+
+			if (scores[i].score >= scores[premierId].score && i !== premierId)
+			{
+				troisiemeId = secondId;
+				secondId = premierId;
+				premierId = i;
+			}
+
+			if (scores[i].pseudo === pseudo)
+			{
+				clientId = i;
+			}
+		}
+
+		for (var i = 0; i < scores.length; i++)
+		{
+			if (scores[i].pseudo.length > 12)
+			{
+				scores[i].pseudoOutput = scores[i].pseudo.substring(0,9) + "...";
+			}
+			else
+			{
+				scores[i].pseudoOutput = scores[i].pseudo;
+			}
+		}
+
+		if(troisiemeId >= 0)
+		{
+			$('#classement-partie ul').html('
+				<li>
+					<div class="joueur-classement">
+						<span class="position-classement">1.</span>
+						<img class="photo-joueur-classement" src="' + scores[premierId].photo + '">
+						<span class="pseudo-classement" title="'+ scores[premierId].pseudo +'">'+ scores[premierId].pseudoOutput +'</span>
+					</div>
+					<span class="score-classement">'+ scores[premierId].score +' pts</span>
+				</li>
+				<li>
+					<div class="joueur-classement">
+						<span class="position-classement">2.</span>
+						<img class="photo-joueur-classement" src="' + scores[secondId].photo + '">
+						<span class="pseudo-classement" title="'+ scores[secondId].pseudo +'">'+ scores[secondId].pseudoOutput +'</span>
+					</div>
+					<span class="score-classement">'+ scores[secondId].score +' pts</span>
+				</li>
+				<li>
+					<div class="joueur-classement">
+						<span class="position-classement">3.</span>
+						<img class="photo-joueur-classement" src="' + scores[troisiemeId].photo + '">
+						<span class="pseudo-classement" title="'+ scores[troisiemeId].pseudo +'">'+ scores[troisiemeId].pseudoOutput +'</span>
+					</div>
+					<span class="score-classement">'+ scores[troisiemeId].score +' pts</span>
+				</li>'
+			);
+		}
+
+		if(secondId >= 0 && troisiemeId < 0)
+		{
+			$('#classement-partie ul').html('
+				<li>
+					<div class="joueur-classement">
+						<span class="position-classement">1.</span>
+						<img class="photo-joueur-classement" src="' + scores[premierId].photo + '">
+						<span class="pseudo-classement" title="'+ scores[premierId].pseudo +'">'+ scores[premierId].pseudoOutput +'</span>
+					</div>
+					<span class="score-classement">'+ scores[premierId].score +' pts</span>
+				</li>
+				<li>
+					<div class="joueur-classement">
+						<span class="position-classement">2.</span>
+						<img class="photo-joueur-classement" src="' + scores[secondId].photo + '">
+						<span class="pseudo-classement" title="'+ scores[secondId].pseudo +'">'+ scores[secondId].pseudoOutput +'</span>
+					</div>
+					<span class="score-classement">'+ scores[secondId].score +' pts</span>
+				</li>'
+			);
+		}
+
+		if(premierId >= 0 && secondId < 0)
+		{
+			$('#classement-partie ul').html('
+				<li>
+					<div class="joueur-classement">
+						<span class="position-classement">1.</span>
+						<img class="photo-joueur-classement" src="' + scores[premierId].photo + '">
+						<span class="pseudo-classement" title="'+ scores[premierId].pseudo +'">'+ scores[premierId].pseudoOutput +'</span>
+					</div>
+					<span class="score-classement">'+ scores[premierId].score +' pts</span>
+				</li>'
+			);
+		}
+
+		if (clientId !== troisiemeId && clientId !== secondId && clientId !== premierId)
+		{
+			$('#classement-partie ul').append('
+				<li>...</li>
+				<li>
+					<div class="joueur-classement">
+						<span class="position-classement">'+ clientId +'.</span>
+						<img class="photo-joueur-classement" src="' + scores[clientId].photo + '">
+						<span class="pseudo-classement" title="'+ scores[clientId].pseudo +'">'+ scores[clientId].pseudoOutput +'</span>
+					</div>
+					<span class="score-classement">'+ scores[clientId].score +' pts</span>
+				</li>'
+			);
+		}
+	});
+
 	socket.on('pseudo_joueur', function (data) {
 		pseudo = data;
 		$('#pseudo-utilisateur').html(pseudo);
 
-		if (!/Anonyme[\d]+/g.test(pseudo))
+		if (!/Anonyme [\d]+/g.test(pseudo))
 		{
 			$('#bouton-logout').toggle();
 			$('.bouton-connexion').toggle();
@@ -87,7 +209,6 @@ $(function(){
 	});
 
 	$('.button-reponse').click(function () {
-		console.log($('.reponse'));
 	    $('.reponse').hide();
 	    $('.joueurs-dans-la-reponse').show();
 	});

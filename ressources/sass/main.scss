@@ -63,7 +63,7 @@ a
 
 h3
 {
-	margin: 0 0 18px 0;
+	margin: 0 0 10px 0;
 }
 
 .classement ul
@@ -72,6 +72,16 @@ h3
 	padding: 0;
 	margin: 0;
 	text-align: left;
+}
+
+.photo-joueur-classement
+{
+	width: 20px;
+	height: 20px;
+	margin: 0 5px 0 0;
+	position: relative;
+	top: 4px;
+	border-radius: 20px;
 }
 
 .joueur-classement
@@ -88,6 +98,8 @@ h3
 {
 	float: right;
 	display: inline-block;
+	position: relative;
+	top: 6px;
 }
 
 .boutons-connexion
