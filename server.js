@@ -178,7 +178,7 @@ io.on('connection', function (socket, pseudo) {
 			socket.idJoueur = scores.length + 1;
 			socket.photo = "/images/logo.png";
 
-			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo, "answered": 0});
+			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo, "answered": false});
 			socket.idarray = scores.length-1;
 		}
 		else
@@ -199,7 +199,7 @@ io.on('connection', function (socket, pseudo) {
 
 			if (scores.indexOf(socket.handshake.session.passport.user.idJoueur) === -1 && !youshallnotpass)
 			{
-			  scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo, "answered": 0});
+			  scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo, "answered": false});
 			}
 			socket.idarray = scores.length-1;
 		}
@@ -218,19 +218,19 @@ io.on('connection', function (socket, pseudo) {
 			socket.pseudo = "Anonyme" + (scores.length + 1);
 			socket.idJoueur = scores.length + 1;
 			socket.photo = "/images/logo.png";
-			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo, "answered": 0});
+			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo, "answered": false});
 			socket.idarray = scores.length-1;
 		}
 
 
 
-		if(scores[socket.idarray].answered < questionsUtilisees.length)
+		if(scores[socket.idarray].answered === false)
 		{
-		// On note l'id de la reponse
-		reponses.push({"id": idReponse, "pseudo": socket.pseudo, "idJoueur": socket.idJoueur, "photo": socket.photo});
-		scores[socket.idarray].answered++;
-		// On actualise les joueurs par réponse pour chaque client
-		io.emit('joueurs_par_reponses', reponses);
+			// On note l'id de la reponse
+			reponses.push({"id": idReponse, "pseudo": socket.pseudo, "idJoueur": socket.idJoueur, "photo": socket.photo});
+			scores[socket.idarray].answered = true;
+			// On actualise les joueurs par réponse pour chaque client
+			io.emit('joueurs_par_reponses', reponses);
 		}
 	});
 });
@@ -294,6 +294,9 @@ function sendQuestion() {
 		fs.writeFile(__dirname + '/ressources/data/partie_precedente.json', JSON.stringify(scores, null, 4), function (err, data) {
 			if (err) throw err;
 		});
+
+		io.emit('partie_precedente', scores);
+		io.emit
 
 		// On réinitialise les scores
 		for(i = 0; i < scores.length; ++i)
@@ -381,7 +384,7 @@ fs.readFile(__dirname + '/ressources/data/scores_semaine.json', function (err, d
 			var idJson = idsArray[1];
 
 			//On ramène l'indicateur de réponses (anti-triche) au nombre de questions artificiellement
-			scores[i].answered = questionsUtilisees.length;
+			scores[i].answered = false;
 
 			if(idRep != -1 && idJson !== -1)
 			{

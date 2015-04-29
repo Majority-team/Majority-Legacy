@@ -1,11 +1,3 @@
-@media screen and (max-width: 720px) {
-  #classement-semaine {
-    display: none;
-    margin: auto; } }
-@media screen and (max-width: 480px) {
-  #classement-partie-precedente {
-    display: none;
-    margin: auto; } }
 body {
   text-align: center;
   max-width: 900px;
@@ -159,7 +151,8 @@ h3 {
   display: inline-block;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  vertical-align: top; }
 
 #classement-partie {
   background-color: #E7494A;
@@ -200,6 +193,29 @@ footer {
   font-size: 10px;
   margin: 20px 0; }
 
+@media screen and (max-width: 850px) {
+  #classement-semaine {
+    display: none;
+    margin: auto; }
+
+  .classement {
+    width: 45.5%; }
+
+  #classement-partie-precedente {
+    margin: 0 0 0 4%; }
+
+  #classement-partie {
+    margin: 0 4% 0 0; } }
+@media screen and (max-width: 575px) {
+  #classement-partie-precedente {
+    display: none;
+    margin: auto; }
+
+  .classement {
+    width: 100%; }
+
+  #classement-partie {
+    margin: 0; } }
 /************* valentin ************/
 .reponse {
   display: block;
@@ -306,3 +322,19 @@ footer {
   display: inline-block;
   vertical-align: middle;
   margin: 0 0 0 10px; }
+
+@media screen and (max-width: 845px) {
+  .button-reponse {
+    width: 45.5%; }
+
+  .button-reponse:nth-child(1), .button-reponse:nth-child(3) {
+    margin: 0 4% 25px 0; }
+
+  .button-reponse:nth-child(2), .button-reponse:nth-child(4) {
+    margin: 0 0 12px 4%; } }
+@media screen and (max-width: 575px) {
+  .button-reponse {
+    width: 100%; }
+
+  .button-reponse:nth-child(1), .button-reponse:nth-child(3), .button-reponse:nth-child(2), .button-reponse:nth-child(4) {
+    margin: 0 0 25px 0; } }

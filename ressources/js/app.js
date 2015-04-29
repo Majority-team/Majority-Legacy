@@ -64,6 +64,13 @@ $(function(){
 				premierId = i;
 			}
 
+			if (scores[i].score >= scores[premierId].score && i !== premierId)
+			{
+				troisiemeId = secondId;
+				secondId = premierId;
+				premierId = i;
+			}
+
 			if (scores[i].pseudo === pseudo)
 			{
 				clientId = i;
