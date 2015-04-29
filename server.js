@@ -178,7 +178,8 @@ io.on('connection', function (socket, pseudo) {
 			socket.idJoueur = scores.length + 1;
 			socket.photo = "/images/logo.png";
 
-			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo});
+			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo, "answered": 0});
+			socket.idarray = scores.length-1;
 		}
 		else
 		{
@@ -198,8 +199,9 @@ io.on('connection', function (socket, pseudo) {
 
 			if (scores.indexOf(socket.handshake.session.passport.user.idJoueur) === -1 && !youshallnotpass)
 			{
-			  scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo});
+			  scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo, "answered": 0});
 			}
+			socket.idarray = scores.length-1;
 		}
 
 		// On envoie le pseudo du joueur au joueur
@@ -216,14 +218,20 @@ io.on('connection', function (socket, pseudo) {
 			socket.pseudo = "Anonyme" + (scores.length + 1);
 			socket.idJoueur = scores.length + 1;
 			socket.photo = "/images/logo.png";
-			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo});
+			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo, "answered": 0});
+			socket.idarray = scores.length-1;
 		}
 
+
+
+		if(scores[socket.idarray].answered < questionsUtilisees.length)
+		{
 		// On note l'id de la reponse
 		reponses.push({"id": idReponse, "pseudo": socket.pseudo, "idJoueur": socket.idJoueur, "photo": socket.photo});
-
+		scores[socket.idarray].answered++;
 		// On actualise les joueurs par réponse pour chaque client
 		io.emit('joueurs_par_reponses', reponses);
+		}
 	});
 });
 
@@ -292,6 +300,7 @@ function sendQuestion() {
 		{
 			scores[i].score = 0;
 			scores[i].combo = 0;
+			scores[i].answered = 0;
 		}
 	}
 }
@@ -370,6 +379,9 @@ fs.readFile(__dirname + '/ressources/data/scores_semaine.json', function (err, d
 			var idsArray = seekMatchingEntries(i, totalJsonScores, totalAnswers);
 			var idRep = idsArray[0];
 			var idJson = idsArray[1];
+
+			//On ramène l'indicateur de réponses (anti-triche) au nombre de questions artificiellement
+			scores[i].answered = questionsUtilisees.length;
 
 			if(idRep != -1 && idJson !== -1)
 			{
