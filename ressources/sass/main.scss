@@ -193,6 +193,10 @@ h3
 	box-shadow: 0 3px #330000;
 }
 
+#classement
+{
+	height: 250px;
+}
 
 .classement
 {
@@ -201,7 +205,8 @@ h3
 	border-radius: 5px;
 	font-size: 15px;
 	padding: 18px;
-	display: inline-block;
+	display: block;
+	float:left;
 	box-sizing: border-box;
 }
 

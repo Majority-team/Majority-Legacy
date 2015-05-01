@@ -24,8 +24,6 @@ h1 {
 section {
   width: 100%;
   padding: 0 5%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
 article {
@@ -80,8 +78,6 @@ h3 {
   width: 30px;
   height: 30px;
   text-align: center;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 8px 0 0 0;
   border-radius: 50px;
@@ -95,11 +91,8 @@ h3 {
 
 #bouton-logout {
   background-color: #FF6600;
-  -webkit-box-shadow: 0 5px #984D02;
   box-shadow: 0 5px #984D02;
   border-radius: 10px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 8px 12px 6px 12px;
   font-size: 12px;
@@ -109,7 +102,6 @@ h3 {
 
 #bouton-logout:hover {
   background-color: #984D02;
-  -webkit-box-shadow: 0 3px #883D00;
   box-shadow: 0 3px #883D00;
   position: relative;
   top: 2px; }
@@ -118,37 +110,34 @@ h3 {
   font-family: "Arial";
   font-weight: bold;
   background-color: #132F83;
-  -webkit-box-shadow: 0 5px #0A145C;
   box-shadow: 0 5px #0A145C; }
 
 #bouton-fb:hover {
   background-color: #0A145C;
-  -webkit-box-shadow: 0 3px #000011;
   box-shadow: 0 3px #000011; }
 
 #bouton-twitter {
   font-family: "Verdana";
   font-weight: bold;
   background-color: #6699FF;
-  -webkit-box-shadow: 0 5px #2255bb;
   box-shadow: 0 5px #2255bb; }
 
 #bouton-twitter:hover {
   background-color: #2255bb;
-  -webkit-box-shadow: 0 3px #003399;
   box-shadow: 0 3px #003399; }
 
 #bouton-google {
   font-family: "Trebuchet ms";
   font-weight: bold;
   background-color: #880000;
-  -webkit-box-shadow: 0 5px #550000;
   box-shadow: 0 5px #550000; }
 
 #bouton-google:hover {
   background-color: #550000;
-  -webkit-box-shadow: 0 3px #330000;
   box-shadow: 0 3px #330000; }
+
+#classement {
+  height: 250px; }
 
 .classement {
   width: 30%;
@@ -156,26 +145,22 @@ h3 {
   border-radius: 5px;
   font-size: 15px;
   padding: 18px;
-  display: inline-block;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
+  display: block;
+  float: left;
   box-sizing: border-box; }
 
 #classement-partie {
   background-color: #E7494A;
-  -webkit-box-shadow: 0 7px #82292D;
   box-shadow: 0 7px #82292D;
   margin: 0; }
 
 #classement-partie-precedente {
   background-color: #BB2F30;
-  -webkit-box-shadow: 0 7px #5F1E1C;
   box-shadow: 0 7px #5F1E1C;
   margin: 0 4%; }
 
 #classement-semaine {
   background-color: #9C2527;
-  -webkit-box-shadow: 0 7px #491110;
   box-shadow: 0 7px #491110;
   margin: 0; }
 
@@ -184,10 +169,7 @@ h3 {
   background: #778899;
   border-radius: 5px;
   padding: 20px 25px;
-  -webkit-box-shadow: 0 7px #696969;
   box-shadow: 0 7px #696969;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
 #question-number {
@@ -218,11 +200,8 @@ footer {
   vertical-align: top;
   color: #FFFFFF;
   padding: 10px 15px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   border-radius: 8px;
-  -webkit-box-shadow: 0 7px #696969;
   box-shadow: 0 7px #696969;
   background: #778899;
   width: 23%;
@@ -246,7 +225,6 @@ footer {
   color: #FFFFFF;
   background: #FF6600;
   border-radius: 8px;
-  -webkit-box-shadow: 0 5px #984D02;
   box-shadow: 0 5px #984D02;
   position: relative;
   top: 2px; }
@@ -255,20 +233,16 @@ footer {
   width: 100%;
   height: 60px;
   background-color: #FFFFFF;
-  -webkit-box-shadow: 0 7px #999999;
   box-shadow: 0 7px #999999;
   border-radius: 5px;
   margin: 0 auto;
   padding: 13px 15px 7px 15px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
 #timer-vide {
   width: 100%;
   height: 90%;
   background-color: #cccccc;
-  -webkit-box-shadow: 0 -3px #999999;
   box-shadow: 0 -3px #999999;
   border-radius: 5px; }
 
@@ -276,7 +250,6 @@ footer {
   width: 0;
   height: 100%;
   background-color: #19A347;
-  -webkit-box-shadow: 0 -3px #008A2E;
   box-shadow: 0 -3px #008A2E;
   border-radius: 5px; }
 
@@ -306,3 +279,5 @@ footer {
   display: inline-block;
   vertical-align: middle;
   margin: 0 0 0 10px; }
+
+/*# sourceMappingURL=main.css.map */
