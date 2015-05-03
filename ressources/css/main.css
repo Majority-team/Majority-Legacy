@@ -144,7 +144,7 @@ h3 {
 
 .classement {
   width: 30%;
-  height: 250px;
+  height: 180px;
   border-radius: 5px;
   font-size: 15px;
   padding: 18px;
@@ -173,7 +173,6 @@ h3 {
   margin: 0; }
 
 #question {
-  height: 140px;
   background: #778899;
   border-radius: 5px;
   padding: 20px 25px;
@@ -184,10 +183,12 @@ h3 {
   box-sizing: border-box; }
 
 #question-number {
-  font-size: 23px; }
+  font-size: 23px;
+  margin: 10px 0; }
 
 #question-text {
-  font-size: 18px; }
+  font-size: 18px;
+  margin: 20px 0; }
 
 footer {
   font-size: 10px;
@@ -229,7 +230,6 @@ footer {
   cursor: pointer; }
 
 .button-reponse {
-  min-height: 50px;
   display: inline-block;
   vertical-align: top;
   color: #FFFFFF;
@@ -327,10 +327,16 @@ footer {
   .button-reponse {
     width: 45.5%; }
 
-  .button-reponse:nth-child(1), .button-reponse:nth-child(3) {
+  .button-reponse:nth-child(1) {
     margin: 0 4% 25px 0; }
 
-  .button-reponse:nth-child(2), .button-reponse:nth-child(4) {
+  .button-reponse:nth-child(2) {
+    margin: 0 0 25px 4%; }
+
+  .button-reponse:nth-child(3) {
+    margin: 0 4% 12px 0; }
+
+  .button-reponse:nth-child(4) {
     margin: 0 0 12px 4%; } }
 @media screen and (max-width: 575px) {
   .button-reponse {
