@@ -143,7 +143,8 @@ var question = {},
 	reponses = [],
 	first_question = true,
 	jsonScores = [],
-	compteurJoueurServeur = 1;
+	compteurJoueurServeur = 1,
+	idsGagnants = [];
 
 // On recupère toutes les questions de la base de donnée dans le tableau "questions"
 fs.readFile(__dirname + '/ressources/data/questions.json', function (err, data) {
@@ -210,12 +211,12 @@ io.on('connection', function (socket, pseudo) {
 		if (socket.pseudo === undefined || socket.idJoueur === undefined)
 		{
 			compteurJoueurServeur++;
-			
+
 			// On ajoute au tableau des scores un nouveau joueur
 			socket.pseudo = "Anonyme " + compteurJoueurServeur;
 			socket.idJoueur = compteurJoueurServeur;
 			socket.photo = "/images/logo.png";
-			
+
 			socket.emit('id_joueur', socket.idJoueur);
 		}
 
@@ -286,6 +287,8 @@ function sendQuestion() {
 
 	// On vide le tableau des reponses
 	reponses = [];
+
+	io.emit('ids_gagnants', idsGagnants);
 
 	// Si la partie n'est pas finie :
 	if (questionsUtilisees.length < questionsParPartie)
@@ -415,7 +418,8 @@ fs.readFile(__dirname + '/ressources/data/scores_semaine.json', function (err, d
 						scores[i].score += 2; // 2 point pour la réponse majoritaire
 						jsonScores[idJson].score += 2;
 						++scores[i].combo; // +1 au compteur de bonnes réponses consécutives
-						addComboToScore(i, idJson);
+						var current_combo = addComboToScore(i, idJson);
+						idsGagnants.push({'id': scores[i].idJoueur, 'score_ajout': 2, 'nombre_combo': scores[i].combo, 'combo_ajout': current_combo });
 					}
 				}
 				else
@@ -430,6 +434,7 @@ fs.readFile(__dirname + '/ressources/data/scores_semaine.json', function (err, d
 						++scores[i].score; // 1 point pour la deuxième réponse majoritaire
 						++jsonScores[idJson].score;
 						scores[i].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
+						idsGagnants.push({'id': scores[i].idJoueur, 'score_ajout': 1, 'nombre_combo': 0, 'combo_ajout': 0 });
 					}
 				}
 				else
@@ -468,7 +473,8 @@ fs.readFile(__dirname + '/ressources/data/scores_semaine.json', function (err, d
 						++scores[i].score;
 						++jsonScores[idJson].score;
 						++scores[i].combo; // +1 au compteur de bonnes réponses consécutives
-						addComboToScore(i, idJson);
+						var current_combo = addComboToScore(i, idJson);
+						idsGagnants.push({'id': scores[i].idJoueur, 'score_ajout': 1, 'nombre_combo': scores[i].combo, 'combo_ajout': current_combo });
 					}
 					// autre
 					else
@@ -501,9 +507,12 @@ function addComboToScore(arrayID, jsonID) {
 	// à partir de 4 réponses de suite)
 	if(scores[arrayID].combo > 0 && scores[arrayID].combo % 2 == 0)
 	{
-		scores[arrayID].score += (scores[arrayID].combo/2)-1;
-		jsonScores[jsonID].score += (scores[arrayID].combo/2)-1;
+		var combovalue = (scores[arrayID].combo/2)-1;
+		scores[arrayID].score += combovalue;
+		jsonScores[jsonID].score += combovalue;
+		return combovalue;
 	}
+	return 0;
 }
 
 function seekMatchingEntries(idScore, totalJson, totalAns)
