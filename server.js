@@ -287,7 +287,8 @@ function sendQuestion() {
 
 	// On vide le tableau des reponses
 	reponses = [];
-
+	
+	/****************************************************** C'EST ICI TON EVENT NATHAN ***************************************************/
 	io.emit('ids_gagnants', idsGagnants);
 
 	// Si la partie n'est pas finie :
