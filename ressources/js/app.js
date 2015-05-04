@@ -2,6 +2,7 @@ $(function(){
 
 	var reponses = [];
 	var pseudo = "";
+	var idJoueur = 0;
 	var answered = false;
 
 	$('#bouton-logout').hide();
@@ -63,14 +64,10 @@ $(function(){
 				scores[i].pseudoOutput = scores[i].pseudo;
 			}
 
-			if (scores[i].pseudo === pseudo)
+			if (scores[i].idJoueur === idJoueur)
 			{
 				clientId = i;
-
-				if (/Anonyme [\d]+/g.test(scores[i].pseudo))
-				{
-					scores[i].pseudoOutput = "Vous";
-				}
+				scores[i].pseudoOutput = "Vous";
 			}
 		}
 		$('#classement-partie ul').html('');
@@ -252,6 +249,10 @@ $(function(){
 			$('#bouton-logout').toggle();
 			$('.bouton-connexion').toggle();
 		}
+	});
+
+	socket.on('id_joueur', function (data) {
+		idJoueur = data;		}
 	});
 
 	$('#reponse1').click(function(){

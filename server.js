@@ -136,7 +136,7 @@ var question = {},
 	questionsUtilisees = [],
 	questions = [],
 	questionsParPartie = 10,
-	tempsParQuestion = 8000,
+	tempsParQuestion = 10000,
 	tempsEntreParties = 10000,
 	lancerLesQuestions = null,
 	scores = [],
@@ -200,6 +200,7 @@ io.on('connection', function (socket, pseudo) {
 
 		// On envoie le pseudo du joueur au joueur
 		socket.emit('pseudo_joueur', socket.pseudo);
+		socket.emit('id_joueur', socket.idJoueur);
 		socket.emit('scores_partie', scores);
 	});
 
@@ -214,6 +215,8 @@ io.on('connection', function (socket, pseudo) {
 			socket.pseudo = "Anonyme " + compteurJoueurServeur;
 			socket.idJoueur = compteurJoueurServeur;
 			socket.photo = "/images/logo.png";
+			
+			socket.emit('id_joueur', socket.idJoueur);
 		}
 
 		socket.inScores = false;
