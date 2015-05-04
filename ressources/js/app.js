@@ -70,7 +70,11 @@ $(function(){
 				scores[i].pseudoOutput = "Vous";
 			}
 		}
-		$('#classement-partie ul').html('');
+		
+		var textNbJoueurs = "joueur";
+		if(scores.length > 1) {textNbJoueurs = "joueurs"}
+
+		$('#classement-partie ul').html('<li style="text-align: center; font-size: 13px; font-style: italic; margin: 0 0 10px 0">'+ scores.length +' '+ textNbJoueurs +'</li>');
 
 		for (var i = 0; i < 3; i++) {
 			
@@ -137,7 +141,11 @@ $(function(){
 				}
 			}
 		}
-		$('#classement-partie-precedente ul').html('');
+
+		var textNbJoueurs = "joueur";
+		if(scores.length > 1) {textNbJoueurs = "joueurs"}
+
+		$('#classement-partie-precedente ul').html('<li style="text-align: center; font-size: 13px; font-style: italic; margin: 0 0 10px 0">'+ scores.length +' '+ textNbJoueurs +'</li>');
 
 		for (var i = 0; i < 3; i++) {
 			
@@ -204,7 +212,11 @@ $(function(){
 				}
 			}
 		}
-		$('#classement-semaine ul').html('');
+
+		var textNbJoueurs = "joueur";
+		if(scores.length > 1) {textNbJoueurs = "joueurs"}
+
+		$('#classement-semaine ul').html('<li style="text-align: center; font-size: 13px; font-style: italic; margin: 0 0 10px 0">'+ scores.length +' '+ textNbJoueurs +'</li>');
 
 		for (var i = 0; i < 3; i++) {
 			
@@ -252,7 +264,7 @@ $(function(){
 	});
 
 	socket.on('id_joueur', function (data) {
-		idJoueur = data;		}
+		idJoueur = data;
 	});
 
 	$('#reponse1').click(function(){
