@@ -237,7 +237,6 @@ $(function(){
 
 		if (clientId >= 3 && clientId !== -1)
 		{
-			console.log(clientId);
 			$('#classement-semaine ul').append('
 				<li>...</li>
 				<li>
@@ -249,6 +248,20 @@ $(function(){
 					<span class="score-classement">'+ scores[clientId].score +' pts</span>
 				</li>'
 			);
+		}
+	});
+
+	socket.on('ids_gagnants', function (data) {
+		gagnants = data;
+		for (var i = 0; i < gagnants.length; i++)
+		{
+			if (gagnants[i].id === idJoueur)
+			{
+				$('.win').html('+' + (gagnants[i].score_ajout + gagnants[i].combo_ajout));
+				$('.win').attr('style', "");
+				$('.win').animate({opacity: "0"}, 1500);
+				playWinNotif();
+			}
 		}
 	});
 
@@ -335,4 +348,34 @@ $(function(){
 // Hack pour le bug d'url facebook
 if (window.location.hash && window.location.hash === "#_=_") {
     window.location.hash = "";
+}
+
+// Audio
+
+var audio = document.getElementById("audio"),
+	playimg = document.getElementById("playimg"),
+	pauseimg = document.getElementById("pauseimg"); 
+
+function playAudio() {
+ 	audio.loop = true;
+    audio.play();
+    audio.volume = 0.1;
+    playimg.style.display = "none" ;
+    pauseimg.style.display = "" ;
+}
+
+function pauseAudio() { 
+    audio.pause();
+    playimg.style.display = "" ;
+    pauseimg.style.display = "none" ; 
+}
+
+
+
+var winNotif = document.getElementById("winNotif");
+
+function playWinNotif() {
+ 	winNotif.loop = false;
+    winNotif.play();
+    winNotif.volume = 1;
 }

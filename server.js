@@ -288,8 +288,8 @@ function sendQuestion() {
 	// On vide le tableau des reponses
 	reponses = [];
 	
-	/****************************************************** C'EST ICI TON EVENT NATHAN ***************************************************/
 	io.emit('ids_gagnants', idsGagnants);
+	idsGagnants = [];
 
 	// Si la partie n'est pas finie :
 	if (questionsUtilisees.length < questionsParPartie)
@@ -420,7 +420,7 @@ fs.readFile(__dirname + '/ressources/data/scores_semaine.json', function (err, d
 						jsonScores[idJson].score += 2;
 						++scores[i].combo; // +1 au compteur de bonnes réponses consécutives
 						var current_combo = addComboToScore(i, idJson);
-						idsGagnants.push({'id': scores[i].idJoueur, 'score_ajout': 2, 'nombre_combo': scores[i].combo, 'combo_ajout': current_combo });
+						idsGagnants.push({'id': scores[i].idJoueur, 'score_ajout': 2, 'combo_ajout': current_combo });
 					}
 				}
 				else
@@ -475,7 +475,7 @@ fs.readFile(__dirname + '/ressources/data/scores_semaine.json', function (err, d
 						++jsonScores[idJson].score;
 						++scores[i].combo; // +1 au compteur de bonnes réponses consécutives
 						var current_combo = addComboToScore(i, idJson);
-						idsGagnants.push({'id': scores[i].idJoueur, 'score_ajout': 1, 'nombre_combo': scores[i].combo, 'combo_ajout': current_combo });
+						idsGagnants.push({'id': scores[i].idJoueur, 'score_ajout': 1, 'combo_ajout': current_combo });
 					}
 					// autre
 					else
@@ -491,7 +491,7 @@ fs.readFile(__dirname + '/ressources/data/scores_semaine.json', function (err, d
 		}
 		else
 		{
-			console.log('Egalité 1e rep (mode privé)');
+			// console.log('Egalité 1e rep (mode privé)');
 		}
 	}
 

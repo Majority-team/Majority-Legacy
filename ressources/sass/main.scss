@@ -105,6 +105,15 @@ h3
 	color: #ffffff;
 }
 
+.bouton-son
+{
+	display: inline-block;
+	width: 30px;
+	padding: 0;
+	cursor: pointer;
+	vertical-align: bottom;
+}
+
 .bouton-connexion:hover
 {
 	position: relative;
@@ -453,4 +462,20 @@ footer
 		margin: 0 0 25px 0;
 	}
 
+}
+
+
+/***************************** Win ************************/
+.win
+{
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	font-size: 150px;
+	left: 0;
+	top: 50%;
+	color: #faa200;
+	text-shadow: 0 3px #ba7900;
+	font-family: "Lobster";
+	font-weight: bold;
 }

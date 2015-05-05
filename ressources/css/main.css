@@ -81,6 +81,13 @@ h3 {
   cursor: pointer;
   color: #ffffff; }
 
+.bouton-son {
+  display: inline-block;
+  width: 30px;
+  padding: 0;
+  cursor: pointer;
+  vertical-align: bottom; }
+
 .bouton-connexion:hover {
   position: relative;
   top: 2px; }
@@ -344,3 +351,15 @@ footer {
 
   .button-reponse:nth-child(1), .button-reponse:nth-child(3), .button-reponse:nth-child(2), .button-reponse:nth-child(4) {
     margin: 0 0 25px 0; } }
+/***************************** Win ************************/
+.win {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 150px;
+  left: 0;
+  top: 50%;
+  color: #faa200;
+  text-shadow: 0 3px #ba7900;
+  font-family: "Lobster";
+  font-weight: bold; }

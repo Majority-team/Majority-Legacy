@@ -45,6 +45,8 @@
 	  		<a href="/auth/twitter"><span class="bouton-connexion" id="bouton-twitter">t</span></a>
 	  		<a href="/auth/google"><span class="bouton-connexion" id="bouton-google">g+</span></a>
 	  		<a href="/logout"><span id="bouton-logout">Log out</span></a>
+	  		<img onclick="playAudio()" class="bouton-son" src="/images/play.png" id="playimg"></img>
+	  		<img onclick="pauseAudio()" class="bouton-son" src="/images/pause.png" id="pauseimg" style="display:none"></img><br>
 		</div>
 	</header>
 	
@@ -71,8 +73,8 @@
 		</article>
 		
 		<article id="question">
-			<h2 id="question-number">Question ???</h2>
-			<p id="question-text">Ceci est une question</p>
+			<h2 id="question-number">Chargement...</h2>
+			<p id="question-text">La question s'affichera ici</p>
 		</article>
 		
 		<article id="contour-timer">
@@ -84,30 +86,39 @@
 		<article id="reponses">
 			<ul>
 				<li class="button-reponse noselect" id="reponse1">
-					<span class="reponse">Ceci est la reponse numero 1</span>
+					<span class="reponse">Réponse 1</span>
 					<ul class="joueurs-dans-la-reponse" id="joueurs-dans-la-reponse1"></ul>
 				</li>
 				<li class="button-reponse noselect" id="reponse2">
-					<span class="reponse">Ceci est la reponse numero 2</span>
+					<span class="reponse">Réponse 2</span>
 					<ul class="joueurs-dans-la-reponse" id="joueurs-dans-la-reponse2"></ul>
 				</li>
 				<li class="button-reponse noselect" id="reponse3">
-					<span class="reponse">Ceci est la reponse numero 3</span>
+					<span class="reponse">Réponse 3</span>
 					<ul class="joueurs-dans-la-reponse" id="joueurs-dans-la-reponse3"></ul>
 				</li>
 				<li class="button-reponse noselect" id="reponse4">
-					<span class="reponse">Ceci est la reponse numero 4</span>
+					<span class="reponse">Réponse 4</span>
 					<ul class="joueurs-dans-la-reponse" id="joueurs-dans-la-reponse4"></ul>
 				</li>
 			</ul>
 		</article>
+
+		<article class="win"></article>
 	</section>
 
 	<footer>
 		<span>Créé dans le cadre d'un projet ISN. Tous droits réservés</span>
+
+		<audio controles loop id="audio" width="0" height="0">
+		  <source src="/sons/ambiance 2.mp3" type="audio/mp3">
+		</audio>
+		<audio controles id="winNotif" width="0" height="0">
+		  <source src="/sons/win.mp3" type="audio/mp3">
+		</audio>
 	</footer>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="/js/jquery-1.10.2.min.js"></script>
 	<script src="/js/jquery.cookieBar.min.js"></script>
 	<script src="/js/jquery.fancybox.pack.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
