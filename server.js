@@ -435,7 +435,7 @@ fs.readFile(__dirname + '/ressources/data/scores_semaine.json', function (err, d
 						++scores[i].score; // 1 point pour la deuxième réponse majoritaire
 						++jsonScores[idJson].score;
 						scores[i].combo = 0; // remise à zéro du compteur bonnes réponses consécutives
-						idsGagnants.push({'id': scores[i].idJoueur, 'score_ajout': 1, 'nombre_combo': 0, 'combo_ajout': 0 });
+						idsGagnants.push({'id': scores[i].idJoueur, 'score_ajout': 1, 'combo_ajout': 0 });
 					}
 				}
 				else

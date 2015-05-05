@@ -94,5 +94,173 @@
 		"entre 18 et 25 ans",
 		"plus de 25 ans",
 		"deux jambes et deux bras, comme tout le monde"]
+},
+{
+	"question":"Qu’est-ce qu’une louche ?",
+	"reponses":
+		["un grosse cuillère",
+		"un louche",
+		"une quoi ??",
+		"un ustensile de cuisine"]
+},
+{
+	"question":"Que fais-tu ?",
+	"reponses":
+		["je réponds à la question",
+		"je joue à Majority Legacy ",
+		"j’écoute de la musique",
+		"je clique sur cette réponse"]
+},
+{
+	"question":"Pourquoi faut-il toujours mentir ?",
+	"reponses":
+		["pour ne pas s'excuser de dire la vérité",
+		"pour avoir un grand nez !",
+		"pour être cru",
+		"pour faire de la politique"]
+},
+{
+	"question":"ça va ?",
+	"reponses":
+		["Oui",
+		"non",
+		"bof",
+		"peut-être"]
+},
+{
+	"question":"Pourquoi ?",
+	"reponses":
+		["parce que",
+		"pourquoi pourquoi ?",
+		"oui",
+		"surement"]
+},
+{
+	"question":"La douche sert à:",
+	"reponses":
+		["se laver",
+		"chanter",
+		"gaspiller de l’eau",
+		"la quoi ?"]
+},
+{
+	"question":"Pile ou face ?",
+	"reponses":
+		["Pile",
+		"Face",
+		"Tranche",
+		"Triche"]
+},
+{
+	"question":"Je suis...",
+	"reponses":
+		["le Docteur",
+		"fou du chocolat Lanvin",
+		"de retour",
+		"une question de Julien Lepers"]
+},
+{
+	"question":"Maître Yoda:",
+	"reponses":
+		["est très vieux",
+		"est tout vert",
+		"est petitddd",
+		"est l’inventeur du format de date américain"]
+},
+{
+	"question":"Vous dites:",
+	"reponses":
+		["chocolatine, pas pain au chocolat",
+		"pain au chocolat, pas chocolatine",
+		"rien, pour ne prendre aucun risqueddd",
+		"croissant, c’est presque pareil"]
+},
+{
+	"question":"bluetooth se prononce:",
+	"reponses":
+		["bloutousse",
+		"bloutouffe",
+		"bloutouteddd",
+		"bloutou"]
+},
+{
+	"question":"How to basics ?",
+	"reponses":
+		["avec des oeufs",
+		"comme cela",
+		"sans les mainsddd",
+		"je ne sais pô"]
+},
+{
+	"question":"il ne faut pas:",
+	"reponses":
+		["vendre la peau de l’ours avant de l’avoir mangé",
+		"prendre le pot de l’ours sans y avoir pensé",
+		"tricher...sauf aux cartesddd",
+		"réfléchir"]
+},
+{
+	"question":"Que pensez vous de la conjecture économique actuelle ?",
+	"reponses":
+		["voyez vous, euuuuuuuuh",
+		"et bien c’est très simple",
+		"je pense que dans ce contexte social actuel, ce n’est pas une question adéquateddd",
+		"comme le dirait monsieur de Kernovack, euh…."]
+},
+{
+	"question":"Comment fais-tu pour dormir ?",
+	"reponses":
+		["je me mets dans mon lit",
+		"je ferme les yeux",
+		"ma maman me raconte une histoireddd",
+		"Dor quoi ?"]
+},
+{
+	"question":"De quelle couleur est le crépi ?",
+	"reponses":
+		["Rouge",
+		"Vert",
+		"Bleu",
+		"Jaune"]
+},
+{
+	"question":"Qui est né en premier ?",
+	"reponses":
+    	["la poule",
+    	"l’oeuf",
+    	"Dieu",
+    	"Moi"]
+},
+{
+	"question":"Quel est ton métier ?",
+	"reponses":
+    	["Etudiant",
+    	"Chomeur",
+    	"Fonctionnaire",
+    	"Militant"]
+},
+{
+	"question":"Comment écris-tu ?",
+	"reponses":
+    	["à l’ordi",
+    	"avec la main",
+    	"en script",
+    	"attaché"]
+},
+{
+	"question":"Quelles sont les opinons ?",
+	"reponses":
+    	["PS",
+    	"UMP",
+    	"Centre",
+    	"Escroc"]
+},
+{
+	"question":"Quel est votre mème préféré ?",
+	"reponses":
+    	["Nyan cat",
+    	"Trololo",
+    	"Rick Roll",
+    	"Chuck Norris facts"]
 }
 ]
