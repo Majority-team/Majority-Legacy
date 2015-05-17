@@ -172,31 +172,51 @@ io.on('connection', function (socket, pseudo) {
 	// Nouvelle connection
 	socket.on('new_client', function () {
 
+		// Variable d'utilisateur contenant les identifiants si connecté : socket.handshake.session.passport.user
+		// Variable de session où sont stockées les informations utilisateur : socket
+
+		// Envoi des scores de la semaine au joueur
 		fs.readFile(__dirname + '/ressources/data/scores_semaine.json', function (err, data) {
 			if (err) throw err;
 			socket.emit('scores_semaine', JSON.parse(data));
 		});
 
+		// +1 au nombre total de joueurs s'étant connectés
 		compteurJoueurServeur++;
 
-		// Variable d'utilisateur : socket.handshake.session.passport.user
+		// Joueur identifié ?
 		if (socket.handshake.session.passport.user === undefined)
+		// Non
 		{
-			// On ajoute au tableau des scores un nouveau joueur
-			socket.pseudo = "Anonyme " + (compteurJoueurServeur);
+			// Attribution d'un id selon le nombre total de joueurs s'étant connectés
 			socket.idJoueur = compteurJoueurServeur;
+
+			// Attribution d'un pseudo du type : "Anonyme " + id
+			socket.pseudo = "Anonyme " + (compteurJoueurServeur);
+
+			// Attribution de la photo des utilisateurs anonymes
 			socket.photo = "/images/logo.png";
 		}
 		else
+		// Oui
 		{
-			socket.pseudo = socket.handshake.session.passport.user.pseudo;
+			// Récupération de l'identifiant
 			socket.idJoueur = socket.handshake.session.passport.user.idJoueur;
+
+			// Récupération du pseudo
+			socket.pseudo = socket.handshake.session.passport.user.pseudo;
+
+			// Récupération de la photo
 			socket.photo = socket.handshake.session.passport.user.photo;
 		}
 
-		// On envoie le pseudo du joueur au joueur
+		// Envoi du pseudo du joueur au joueur
 		socket.emit('pseudo_joueur', socket.pseudo);
+
+		// Envoi de l'id du joueur au joueur
 		socket.emit('id_joueur', socket.idJoueur);
+
+		// Envoi des scores de la partie en cours au joueur
 		socket.emit('scores_partie', scores);
 	});
 
