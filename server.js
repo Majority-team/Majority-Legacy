@@ -177,11 +177,6 @@ io.on('connection', function (socket, pseudo) {
 			socket.emit('scores_semaine', JSON.parse(data));
 		});
 
-		fs.readFile(__dirname + '/ressources/data/partie_precedente.json', function (err, data) {
-			if (err) throw err;
-			socket.emit('partie_precedente', JSON.parse(data));
-		});
-
 		compteurJoueurServeur++;
 
 		// Variable d'utilisateur : socket.handshake.session.passport.user
@@ -253,6 +248,10 @@ io.on('connection', function (socket, pseudo) {
 			io.emit('joueurs_par_reponses', reponses);
 		}
 	});
+
+	socket.on('message_chat', function (message) {
+		io.emit('new_message_chat', {"message": message, "pseudo": socket.pseudo, "photo": socket.photo});
+	});
 });
 
 
@@ -312,13 +311,6 @@ function sendQuestion() {
 
 		// On réinitialise les questions utilisées
 		questionsUtilisees = [];
-
-		// On enregistre les scores de la partie dans le JSON "partie précédente"
-		fs.writeFile(__dirname + '/ressources/data/partie_precedente.json', JSON.stringify(scores, null, 4), function (err, data) {
-			if (err) throw err;
-		});
-
-		io.emit('partie_precedente', scores);
 
 		// On réinitialise les scores
 		scores = [];

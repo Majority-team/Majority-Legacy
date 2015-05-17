@@ -1,7 +1,8 @@
 body {
   text-align: center;
-  max-width: 900px;
+  max-width: 1200px;
   margin: auto;
+  padding: 0 20px;
   font-family: "Trebuchet ms";
   font-size: 15px;
   color: #ffffff;
@@ -15,7 +16,7 @@ h1 {
 
 section {
   width: 100%;
-  padding: 0 5%;
+  padding: 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
@@ -150,11 +151,11 @@ h3 {
   box-shadow: 0 3px #330000; }
 
 .classement {
-  width: 30%;
   height: 200px;
   border-radius: 5px;
   font-size: 15px;
   padding: 18px;
+  width: 47.5%;
   display: inline-block;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -165,19 +166,13 @@ h3 {
   background-color: #E7494A;
   -webkit-box-shadow: 0 7px #82292D;
   box-shadow: 0 7px #82292D;
-  margin: 0; }
-
-#classement-partie-precedente {
-  background-color: #BB2F30;
-  -webkit-box-shadow: 0 7px #5F1E1C;
-  box-shadow: 0 7px #5F1E1C;
-  margin: 0 4%; }
+  margin: 0 2% 0 0; }
 
 #classement-semaine {
-  background-color: #9C2527;
-  -webkit-box-shadow: 0 7px #491110;
-  box-shadow: 0 7px #491110;
-  margin: 0; }
+  background-color: #E7494A;
+  -webkit-box-shadow: 0 7px #82292D;
+  box-shadow: 0 7px #82292D;
+  margin: 0 0 0 2%; }
 
 #question {
   background: #778899;
@@ -201,21 +196,8 @@ footer {
   font-size: 10px;
   margin: 20px 0; }
 
-@media screen and (max-width: 850px) {
-  #classement-semaine {
-    display: none;
-    margin: auto; }
-
-  .classement {
-    width: 45.5%; }
-
-  #classement-partie-precedente {
-    margin: 0 0 0 4%; }
-
-  #classement-partie {
-    margin: 0 4% 0 0; } }
 @media screen and (max-width: 575px) {
-  #classement-partie-precedente {
+  #classement-semaine {
     display: none;
     margin: auto; }
 
@@ -236,6 +218,10 @@ footer {
   text-align: center;
   cursor: pointer; }
 
+#reponses ul {
+  padding: 0;
+  list-style: none; }
+
 .button-reponse {
   display: inline-block;
   vertical-align: top;
@@ -244,31 +230,30 @@ footer {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border-radius: 8px;
+  border-radius: 5px;
   -webkit-box-shadow: 0 7px #696969;
   box-shadow: 0 7px #696969;
   background: #778899;
-  width: 23%;
+  width: 45.5%;
   font-size: 13px;
   line-height: 15px; }
 
 .button-reponse:nth-child(1) {
-  margin: 0 1% 0 0; }
+  margin: 0 4% 25px 0; }
 
-.button-reponse:nth-child(2), .button-reponse:nth-child(3) {
-  margin: 0 1%; }
+.button-reponse:nth-child(2) {
+  margin: 0 0 25px 4%; }
+
+.button-reponse:nth-child(3) {
+  margin: 0 4% 12px 0; }
 
 .button-reponse:nth-child(4) {
-  margin: 0 0 0 1%; }
-
-#reponses ul {
-  list-style-type: none;
-  padding: 0; }
+  margin: 0 0 12px 4%; }
 
 .button-reponse:hover, .button-reponse:active, .button-reponse:focus {
   color: #FFFFFF;
   background: #FF6600;
-  border-radius: 8px;
+  border-radius: 5px;
   -webkit-box-shadow: 0 5px #984D02;
   box-shadow: 0 5px #984D02;
   position: relative;
@@ -291,16 +276,16 @@ footer {
   width: 100%;
   height: 90%;
   background-color: #cccccc;
-  -webkit-box-shadow: 0 -3px #999999;
-  box-shadow: 0 -3px #999999;
+  -webkit-box-shadow: 0 -4px #999999;
+  box-shadow: 0 -4px #999999;
   border-radius: 5px; }
 
 #timer-plein {
   width: 0;
   height: 100%;
   background-color: #19A347;
-  -webkit-box-shadow: 0 -3px #008A2E;
-  box-shadow: 0 -3px #008A2E;
+  -webkit-box-shadow: 0 -4px #008A2E;
+  box-shadow: 0 -4px #008A2E;
   border-radius: 5px; }
 
 .noselect {
@@ -330,27 +315,80 @@ footer {
   vertical-align: middle;
   margin: 0 0 0 10px; }
 
-@media screen and (max-width: 845px) {
-  .button-reponse {
-    width: 45.5%; }
-
-  .button-reponse:nth-child(1) {
-    margin: 0 4% 25px 0; }
-
-  .button-reponse:nth-child(2) {
-    margin: 0 0 25px 4%; }
-
-  .button-reponse:nth-child(3) {
-    margin: 0 4% 12px 0; }
-
-  .button-reponse:nth-child(4) {
-    margin: 0 0 12px 4%; } }
 @media screen and (max-width: 575px) {
   .button-reponse {
     width: 100%; }
 
   .button-reponse:nth-child(1), .button-reponse:nth-child(3), .button-reponse:nth-child(2), .button-reponse:nth-child(4) {
     margin: 0 0 25px 0; } }
+#chat {
+  display: none; }
+
+@media screen and (min-width: 850px) {
+  #jeu {
+    display: inline-block;
+    vertical-align: top;
+    width: 67%;
+    margin: 0 2% 0 0; }
+
+  #chat {
+    display: inline-block;
+    vertical-align: top;
+    width: 30%;
+    background-color: #FFFFFF;
+    -webkit-box-shadow: 0 7px #999999;
+    box-shadow: 0 7px #999999;
+    border-radius: 5px;
+    margin: 30px 0 0 0;
+    padding: 17px 15px 13px 15px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+
+  #fond-chat_haut {
+    height: 468px;
+    background-color: #cccccc;
+    -webkit-box-shadow: 0 -4px #999999;
+    box-shadow: 0 -4px #999999;
+    border-radius: 5px;
+    overflow: auto; }
+
+  #fond-chat_bas {
+    margin: 20px 0 -25px 0;
+    width: 100%;
+    height: 60px;
+    max-width: 100%;
+    background-color: #cccccc;
+    -webkit-box-shadow: 0 -4px #999999;
+    box-shadow: 0 -4px #999999;
+    border-radius: 5px;
+    border: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 5px 83px 5px 5px;
+    font-family: "Trebuchet MS"; }
+
+  #button-chat {
+    background-color: #778899;
+    padding: 5px 8px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 3px #696969;
+    box-shadow: 0 3px #696969;
+    border: 0;
+    color: #ffffff;
+    float: right;
+    position: relative;
+    bottom: 22px;
+    right: 10px;
+    font-family: "Trebuchet MS"; }
+
+  #button-chat:hover, #button-chat:active {
+    background-color: #696969;
+    -webkit-box-shadow: 0 1px #555555;
+    box-shadow: 0 1px #555555;
+    bottom: 20px;
+    cursor: pointer; } }
 /***************************** Win ************************/
 .win {
   position: absolute;

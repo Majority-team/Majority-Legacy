@@ -110,77 +110,6 @@ $(function(){
 		}
 	});
 
-	socket.on('partie_precedente', function (data) {
-
-		var scores = data;
-		var clientId = -1;
-
-		// On ordonne les scores
-		scores.sort(function (a, b) {
-			return b.score - a.score;
-		});
-
-		for (var i = 0; i < scores.length; i++)
-		{
-			if (scores[i].pseudo.length > 12)
-			{
-				scores[i].pseudoOutput = scores[i].pseudo.substring(0,9) + "...";
-			}
-			else
-			{
-				scores[i].pseudoOutput = scores[i].pseudo;
-			}
-
-			if (scores[i].pseudo === pseudo)
-			{
-				clientId = i;
-
-				if (/Anonyme [\d]+/g.test(scores[i].pseudo))
-				{
-					scores[i].pseudoOutput = "Vous";
-				}
-			}
-		}
-
-		var textNbJoueurs = "joueur";
-		if(scores.length > 1) {textNbJoueurs = "joueurs"}
-
-		$('#classement-partie-precedente ul').html('<li style="text-align: center; font-size: 13px; font-style: italic; margin: 0 0 10px 0">'+ scores.length +' '+ textNbJoueurs +'</li>');
-
-		for (var i = 0; i < 3; i++) {
-			
-			if(scores[i] !== undefined)
-			{
-				$('#classement-partie-precedente ul').append('
-					<li>
-						<div class="joueur-classement">
-							<span class="position-classement">' + (i + 1) + '.</span>
-							<img class="photo-joueur-classement" src="' + scores[i].photo + '">
-							<span class="pseudo-classement" title="'+ scores[i].pseudo +'">'+ scores[i].pseudoOutput +'</span>
-						</div>
-						<span class="score-classement">'+ scores[i].score +' pts</span>
-					</li>'
-				);
-			}
-		}
-
-		if (clientId >= 3 && clientId !== -1)
-		{
-			console.log(clientId);
-			$('#classement-partie-precedente ul').append('
-				<li>...</li>
-				<li>
-					<div class="joueur-classement">
-						<span class="position-classement">'+ (clientId + 1) +'.</span>
-						<img class="photo-joueur-classement" src="' + scores[clientId].photo + '">
-						<span class="pseudo-classement" title="'+ scores[clientId].pseudo +'">'+ scores[clientId].pseudoOutput +'</span>
-					</div>
-					<span class="score-classement">'+ scores[clientId].score +' pts</span>
-				</li>'
-			);
-		}
-	});
-
 	socket.on('scores_semaine', function (data) {
 
 		var scores = data;
@@ -342,6 +271,29 @@ $(function(){
 				}
 			}
 		});
+	});
+
+	var compteurMessages = 0;
+
+	$('#button-chat').click(function () {
+	    if (compteurMessages < 8)
+	    {
+	    	compteurMessages++;
+	    	socket.emit('message_chat', $("#fond-chat_bas").val());
+	    	$("#fond-chat_bas").val('');
+	    }
+	    else
+	    {
+	    	$('#fond-chat_haut').append('<p style="text-align: left; color: #ee0000; font-size: 14px; margin: 5px 0;">Veuillez patientez, vous floodez.</p>');
+	    	$('#fond-chat_haut').scrollTop($('#fond-chat_haut').outerHeight());
+	    }
+	});
+
+	clearCompteur = setInterval(function(){if(compteurMessages > 0) {compteurMessages--;}}, 4000);
+
+	socket.on('new_message_chat', function (data) {
+		$('#fond-chat_haut').append('<p style="text-align: left; color: #000000; font-size: 14px; margin: 5px;"><img class="photo-joueur-classement" src="' + data.photo + '"><strong>' + data.pseudo + ' :</strong> ' + data.message + '</p>');
+		$('#fond-chat_haut').scrollTop($('#fond-chat_haut').outerHeight());
 	});
 });
 

@@ -164,7 +164,7 @@
 	"reponses":
 		["est très vieux",
 		"est tout vert",
-		"est petitddd",
+		"est petit",
 		"est l’inventeur du format de date américain"]
 },
 {
@@ -172,7 +172,7 @@
 	"reponses":
 		["chocolatine, pas pain au chocolat",
 		"pain au chocolat, pas chocolatine",
-		"rien, pour ne prendre aucun risqueddd",
+		"rien, pour ne prendre aucun risque",
 		"croissant, c’est presque pareil"]
 },
 {
@@ -180,7 +180,7 @@
 	"reponses":
 		["bloutousse",
 		"bloutouffe",
-		"bloutouteddd",
+		"bloutoute",
 		"bloutou"]
 },
 {
@@ -188,7 +188,7 @@
 	"reponses":
 		["avec des oeufs",
 		"comme cela",
-		"sans les mainsddd",
+		"sans les mains",
 		"je ne sais pô"]
 },
 {
@@ -196,7 +196,7 @@
 	"reponses":
 		["vendre la peau de l’ours avant de l’avoir mangé",
 		"prendre le pot de l’ours sans y avoir pensé",
-		"tricher...sauf aux cartesddd",
+		"tricher...sauf aux cartes",
 		"réfléchir"]
 },
 {
@@ -204,7 +204,7 @@
 	"reponses":
 		["voyez vous, euuuuuuuuh",
 		"et bien c’est très simple",
-		"je pense que dans ce contexte social actuel, ce n’est pas une question adéquateddd",
+		"je pense que dans ce contexte social actuel, ce n’est pas une question adéquate",
 		"comme le dirait monsieur de Kernovack, euh…."]
 },
 {
@@ -212,7 +212,7 @@
 	"reponses":
 		["je me mets dans mon lit",
 		"je ferme les yeux",
-		"ma maman me raconte une histoireddd",
+		"ma maman me raconte une histoire",
 		"Dor quoi ?"]
 },
 {
@@ -262,5 +262,75 @@
     	"Trololo",
     	"Rick Roll",
     	"Chuck Norris facts"]
+},
+{	"question": "Quel est le prenom le plus italien ?",
+	"reponses":
+		["Marcelo",
+		"Filipo",
+		"Antonio",
+		"Francesco"]
+},
+{	"question": "Qui est le plus démoniaque ?",
+	"reponses":
+		["Sauron",
+		"Le Joker",
+		"Cruella",
+		"Dark Vador"]
+},
+{	"question": "Quelle épice rebondit le plus ?",
+	"reponses":
+		["Paprika",
+		"Cumin",
+		"Safran",
+		"Poivre"]
+},
+{	"question": "Qui est le plus photogénique ?",
+	"reponses":
+		["Napoléon",
+		"Jesus Christ",
+		"Jeanne d'Arc",
+		"Robospierre"]
+},
+{	"question": "Quel est l'animé qui vous a le plus marqué ?",
+	"reponses":
+		["DBZ",
+		"Je ne regarde pas d'animés",
+		"Pokémon",
+		"Oni chichi"]
+},
+{	"question": "Merci qui ?",
+	"reponses":
+		["Merci bibi",
+		"Merci mon chien",
+		"Merci tout court",
+		"De rien"]
+},
+{	"question": "Qui était le pirate à la plus grande moustache ?",
+	"reponses":
+		["Tipiak",
+		"Rackam le Rouge",
+		"Barbe Noire",
+		"Capitaine Crochet"]
+},
+{	"question": "Quel est le membre le plus puissant de Chuck Norris ?",
+	"reponses":
+		["Son bras droit",
+		"Son nez",
+		"Ses cheveux",
+		"Son pied"]
+},
+{	"question": "Je suis un animateur de france 3, je pose des questions à  des champions le soir à  18h, je suis, je suis ?",
+	"reponses":
+		["La mer noire",
+		"La mer noire ?",
+		"C'est... La mer noire !!",
+		"Julien Lepers"]
+},
+{	"question": "Quel est le meilleur pick ?",
+	"reponses":
+		["Bard",
+		"Nidalee",
+		"Ekko",
+		"Teemo]
 }
 ]
