@@ -179,11 +179,16 @@ $(function(){
 			);
 		}
 	});
+	
 
+	// On reçoit les gagnants de la question précédente
 	socket.on('ids_gagnants', function (data) {
 		gagnants = data;
+
+		// On cherche le joueur dans le tableau des gagnants
 		for (var i = 0; i < gagnants.length; i++)
 		{
+			// Si il y est on lui affiche une petite animation
 			if (gagnants[i].id === idJoueur)
 			{
 				$('.win').html('+' + (gagnants[i].score_ajout + gagnants[i].combo_ajout));
