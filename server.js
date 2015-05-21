@@ -334,13 +334,6 @@ function sendQuestion() {
 		scores = [];
 
 		io.emit('scores_partie', scores);
-
-		// On réinitialise les scores
-		for(i = 0; i < scores.length; ++i)
-		{
-			scores[i].score = 0;
-			scores[i].combo = 0;
-		}
 	}
 }
 
