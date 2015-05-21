@@ -327,8 +327,6 @@ function sendQuestion() {
 		// On relance la partie après tempsEntreParties ms
 		var startNewgame = setTimeout(newGame, tempsEntreParties);
 
-		io.emit('waiting_next_game', tempsEntreParties);
-
 		// On réinitialise les questions utilisées
 		questionsUtilisees = [];
 
