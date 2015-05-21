@@ -223,6 +223,7 @@ io.on('connection', function (socket, pseudo) {
 	// Reponse envoyée
 	socket.on('answer', function (idReponse) {
 
+		// Si l’utilisateur n’est pas défini, on le défini
 		if (socket.pseudo === undefined || socket.idJoueur === undefined)
 		{
 			compteurJoueurServeur++;
@@ -235,6 +236,7 @@ io.on('connection', function (socket, pseudo) {
 			socket.emit('id_joueur', socket.idJoueur);
 		}
 
+		// On vérifie que l'utilisateur n'est pas dans le tableau des scores
 		socket.inScores = false;
 
 		for (var i = 0; i < scores.length; i++)
@@ -245,11 +247,13 @@ io.on('connection', function (socket, pseudo) {
 			}
 		}
 
+		// Si il n'y est pas on l'y ajoute
 		if (!socket.inScores)
 		{
 			scores.push({"pseudo": socket.pseudo, "score": 0, "idJoueur": socket.idJoueur, "combo": 0, "photo": socket.photo});
 		}
 
+		// On vérifie que l'utilisateur n'a pas déja répondu
 		socket.answered = false;
 
 		for (var i = 0; i < reponses.length; i++)
@@ -260,6 +264,7 @@ io.on('connection', function (socket, pseudo) {
 			}
 		}
 
+		// Si il n'a pas répondu
 		if(!socket.answered)
 		{
 			// On note l'id de la reponse
